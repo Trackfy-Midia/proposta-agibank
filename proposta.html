@@ -514,7 +514,8 @@ footer {
       <div class="nav-logo-bar"></div>
     </div>
     Trackfy
-    <span style="color:rgba(255,255,255,.3);font-weight:400;font-size:13px;">× Agibank</span>
+    <span style="color:rgba(255,255,255,.18);font-size:13px;font-weight:400;">×</span>
+    <img src="v4-logo.jpg" height="22" width="22" style="border-radius:3px;opacity:.65;object-fit:cover;" alt="V4 Company">
   </div>
   <ul class="nav-links">
     <li><a href="#portfolio">01 Portfólio</a></li>
@@ -542,7 +543,7 @@ footer {
       <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
     </svg>
     <div class="hero-divider"></div>
-    <div class="hero-date">Via V4 Company</div>
+    <img src="v4-logo.jpg" width="36" height="36" style="border-radius:5px;opacity:.55;object-fit:cover;" alt="V4 Company">
   </div>
   <div class="scroll-hint">scroll</div>
 </section>
@@ -684,6 +685,11 @@ footer {
         <div>
           <div class="bf-stat-n">1 ponto</div>
           <div class="bf-stat-l">hotspot dedicado</div>
+        </div>
+        <div>
+          <div class="bf-stat-n">~550</div>
+          <div class="bf-stat-l">leads únicos/dia</div>
+          <div style="font-family:'Barlow',sans-serif;font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;">qualificados</div>
         </div>
       </div>
     </div>
@@ -1043,11 +1049,11 @@ footer {
         </div>
         <div class="calc-field">
           <label>Conversão em cliente (%)</label>
-          <input type="number" id="calcConv" value="5" min="0.1" max="100" step="0.5" oninput="calcUpdate()">
+          <input type="number" id="calcConv" value="0" min="0" max="100" step="0.5" oninput="calcUpdate()">
         </div>
         <div class="calc-field">
           <label>Ticket médio (R$)</label>
-          <input type="number" id="calcTicket" value="8000" min="100" step="500" oninput="calcUpdate()">
+          <input type="number" id="calcTicket" value="0" min="0" step="500" oninput="calcUpdate()">
         </div>
         <div>
           <button class="calc-btn" onclick="calcUpdate()">Calcular</button>
@@ -1132,20 +1138,24 @@ function fmt(n) {
 }
 
 function calcUpdate() {
-  const leads = parseFloat(document.getElementById('calcLeads').value) || 1000;
+  const leads = parseFloat(document.getElementById('calcLeads').value) || 5000;
   const conv = parseFloat(document.getElementById('calcConv').value) / 100 || 0.03;
-  const ticket = parseFloat(document.getElementById('calcTicket').value) || 8000;
+  const ticket = parseFloat(document.getElementById('calcTicket').value) || 0;
   const receita = leads * conv * ticket;
+  const hasRoi = conv > 0 && ticket > 0;
 
   const html = TIERS.map((t, i) => {
     const inv = leads * t.cpl;
-    const roi = receita / inv;
+    const roi = hasRoi ? receita / inv : null;
     const feat = i === 3;
+    const metaLine = hasRoi
+      ? `<div class="result-meta">${Math.round(leads * conv)} clientes est. · ${fmt(receita)} receita</div>`
+      : `<div class="result-meta" style="opacity:.35;">Preencha conversão e ticket para simular ROI</div>`;
+    const roiLine = roi !== null ? `<div class="result-roi">ROI ${roi.toFixed(1)}x</div>` : '';
     return `<div class="result-card${feat ? ' featured' : ''}">
       <div class="result-tier">${t.name} · R$${t.cpl.toFixed(2)}/lead</div>
       <div class="result-invest">${fmt(inv)}<span style="font-size:.45em;font-weight:400;opacity:.7;">/mês</span></div>
-      <div class="result-meta">${Math.round(leads * conv)} clientes est. · ${fmt(receita)} receita</div>
-      <div class="result-roi">ROI ${roi.toFixed(1)}x</div>
+      ${metaLine}${roiLine}
     </div>`;
   }).join('');
 
