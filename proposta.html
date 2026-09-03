@@ -372,7 +372,7 @@ h3 {
 .calc-sub { color:rgba(255,255,255,.6); font-size:15px; max-width:520px; margin-bottom:48px; }
 
 .tiers-grid {
-  display:grid; grid-template-columns:repeat(4,1fr);
+  display:grid; grid-template-columns:repeat(3,1fr);
   gap:12px; margin-bottom:48px;
 }
 .tier-card {
@@ -445,7 +445,7 @@ h3 {
 }
 .calc-btn:hover { background:rgba(255,255,255,.9); }
 .calc-results {
-  display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
 }
 .result-card {
   background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
@@ -1008,23 +1008,14 @@ footer {
         </div>
       </div>
       <div class="tier-card">
-        <div class="tier-name">Tier Criativo</div>
-        <div class="tier-cpl">R$2<span style="font-size:.5em;">,60</span></div>
+        <div class="tier-name">Tier Personalizado</div>
+        <div class="tier-cpl">R$3<span style="font-size:.5em;">,10</span></div>
         <div class="tier-unit">por lead</div>
         <div class="tier-features">
           <div class="tier-feat">Tudo do Tier Base</div>
-          <div class="tier-feat">Criativo pós-cadastro (banner/vídeo)</div>
-          <div class="tier-feat">Janela de mídia exclusiva</div>
-        </div>
-      </div>
-      <div class="tier-card">
-        <div class="tier-name">Tier Qualificado</div>
-        <div class="tier-cpl">R$3<span style="font-size:.5em;">,60</span></div>
-        <div class="tier-unit">por lead</div>
-        <div class="tier-features">
-          <div class="tier-feat">Tudo do Tier Criativo</div>
+          <div class="tier-feat">Identidade visual + criativo pós-cadastro</div>
           <div class="tier-feat">Formulário de qualificação customizado</div>
-          <div class="tier-feat">Segmentação por intenção</div>
+          <div class="tier-feat">Segmentação por intenção de compra</div>
         </div>
       </div>
       <div class="tier-card featured">
@@ -1128,8 +1119,7 @@ function pNavigate(dir) {
 /* CALCULATOR */
 const TIERS = [
   { name:'Base', cpl:2.00 },
-  { name:'Criativo', cpl:2.60 },
-  { name:'Qualificado', cpl:3.60 },
+  { name:'Personalizado', cpl:3.10 },
   { name:'Completo', cpl:4.68 },
 ];
 
@@ -1147,7 +1137,7 @@ function calcUpdate() {
   const html = TIERS.map((t, i) => {
     const inv = leads * t.cpl;
     const roi = hasRoi ? receita / inv : null;
-    const feat = i === 3;
+    const feat = i === 2;
     const metaLine = hasRoi
       ? `<div class="result-meta">${Math.round(leads * conv)} clientes est. · ${fmt(receita)} receita</div>`
       : `<div class="result-meta" style="opacity:.35;">Preencha conversão e ticket para simular ROI</div>`;
