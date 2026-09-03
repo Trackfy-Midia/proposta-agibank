@@ -519,6 +519,103 @@ footer {
   transition:background .15s;
 }
 .cta-btn:hover { background:var(--agi-dk); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width:768px) {
+  /* NAV */
+  #nav { padding:0 20px; height:48px; }
+  .nav-links { gap:14px; }
+  .nav-links a { font-size:9px; letter-spacing:.06em; }
+
+  /* SECTIONS */
+  #hero        { padding:68px 20px 56px; }
+  #portfolio   { padding:64px 20px; }
+  #diferencial { padding:64px 20px; }
+  #cronograma  { padding:64px 20px; }
+  #calculadora { padding:64px 20px; }
+  footer       { padding:40px 20px; }
+  .section-inner { padding:0; }
+
+  /* HERO */
+  .hero-logos { gap:16px; flex-wrap:wrap; justify-content:center; }
+
+  /* STATS GRID */
+  .stats-grid { grid-template-columns:1fr; }
+  .stat-card { padding:28px 24px; }
+
+  /* BARRA FUNDA */
+  .barra-funda-callout {
+    flex-direction:column; align-items:flex-start;
+    padding:20px 20px; gap:14px;
+  }
+  .bf-stats { margin-left:0; gap:20px; }
+
+  /* DIF GRID */
+  .dif-grid { grid-template-columns:1fr; gap:40px; }
+  .sim-wrap { position:static; top:auto; }
+
+  /* FLOW CONNECTOR */
+  .flow-connector { flex-wrap:wrap; gap:8px 0; padding:16px 16px; }
+  .flow-node { flex:0 0 calc(33.33% - 8px); }
+  .flow-arrow { padding:0 2px; font-size:12px; }
+
+  /* TIMELINE */
+  .timeline {
+    grid-template-columns:1fr 1fr;
+    gap:32px 16px; margin-top:40px;
+  }
+  .timeline::before { display:none; }
+  .tl-item { padding:0; }
+
+  /* TIERS GRID */
+  .tiers-grid { grid-template-columns:1fr; gap:10px; }
+
+  /* CALC PANEL */
+  .calc-panel { padding:24px 20px; }
+  .calc-row-main {
+    grid-template-columns:1fr 1fr;
+  }
+  .calc-row-main > div:last-child { grid-column:1/-1; }
+  .calc-btn { width:100%; height:44px; }
+  .calc-row-opt { grid-template-columns:1fr 1fr; margin-bottom:20px; }
+  .calc-opt-hint { display:none; }
+  .calc-results { grid-template-columns:1fr; }
+  .result-card { padding:18px 16px; }
+
+  /* FOOTER */
+  .footer-inner { flex-direction:column; gap:28px; align-items:flex-start; }
+  .footer-inner > div:last-child { text-align:left; width:100%; }
+}
+
+@media (max-width:480px) {
+  /* NAV — esconde links, mantém brand */
+  .nav-links { display:none; }
+  #nav { padding:0 16px; }
+
+  /* SECTIONS */
+  #hero        { padding:64px 16px 48px; }
+  #portfolio   { padding:56px 16px; }
+  #diferencial { padding:56px 16px; }
+  #cronograma  { padding:56px 16px; }
+  #calculadora { padding:56px 16px; }
+  footer       { padding:32px 16px; }
+
+  /* HERO */
+  .hero-logos { gap:12px; }
+
+  /* BARRA FUNDA */
+  .bf-stats { flex-direction:row; gap:16px; }
+
+  /* TIMELINE — 1 coluna */
+  .timeline { grid-template-columns:1fr; gap:24px; }
+  .tl-item { flex-direction:row; gap:16px; text-align:left; align-items:flex-start; }
+  .tl-dot { flex-shrink:0; margin-bottom:0; }
+
+  /* CALC */
+  .calc-row-main { grid-template-columns:1fr; }
+  .calc-row-opt  { grid-template-columns:1fr; }
+  .calc-panel { padding:20px 16px; }
+}
 </style>
 </head>
 <body>
