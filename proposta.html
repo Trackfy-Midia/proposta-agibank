@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  const HASH = 'cfa2d3a15562ba502db104053b696312f96079437de76ee87a25a0346b188ff3';
+  const ok = sessionStorage.getItem('auth_ok');
+  if (ok === HASH) return;
+  const pwd = prompt('Senha de acesso:');
+  if (!pwd) { document.documentElement.innerHTML = ''; return; }
+  async function check(p) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(p));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  check(pwd).then(h => {
+    if (h === HASH) { sessionStorage.setItem('auth_ok', HASH); }
+    else { document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center"><p style="color:#666">Senha incorreta.</p></body>'; }
+  });
+})();
+</script>
+<title>Proposta Comercial · Trackfy × Agibank · V4 Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F0EDE8;
+  --surface:  #E8E4DE;
+  --border:   #D8D4CE;
+  --black:    #111111;
+  --red:      #E52420;
+  --muted:    #888880;
+  --dim:      #66665F;
+  --white:    #FFFFFF;
+  --agi:      #266BFF;
+  --agi-dk:   #1A56DD;
+  --agi-lt:   rgba(38,107,255,.09);
+  --agi-gr:   #2FC750;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--black); font-family:'Barlow',sans-serif; font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+/* NAV */
+#nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:var(--black); height:52px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-brand {
+  font-family:'Barlow Condensed',sans-serif; font-weight:800;
+  font-size:15px; letter-spacing:.08em; color:var(--white);
+  display:flex; align-items:center; gap:10px;
+}
+.nav-brand-dot { width:8px; height:8px; border-radius:50%; background:var(--red); }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:rgba(255,255,255,.45); text-decoration:none;
+  letter-spacing:.1em; text-transform:uppercase;
+  transition:color .15s;
+}
+.nav-links a:hover { color:var(--white); }
+
+/* SECTION WRAPPER */
+.section-inner { max-width:1100px; margin:0 auto; }
+
+/* LABELS */
+.sec-label {
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--red);
+  display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.sec-label::before { content:''; display:inline-block; width:16px; height:2px; background:var(--red); }
+
+/* HEADINGS */
+h2 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(40px,5.5vw,66px);
+  font-weight:800; line-height:1.05; letter-spacing:-.01em;
+  margin-bottom:20px;
+}
+h3 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px; font-weight:700; margin-bottom:6px;
+}
+
+/* HERO */
+#hero {
+  min-height:100vh; background:var(--black);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:80px 48px 60px;
+  position:relative; overflow:hidden;
+}
+#hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 55% at 50% 60%,rgba(38,107,255,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-tag {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  border:1px solid rgba(255,255,255,.12);
+  padding:5px 14px; border-radius:2px;
+  margin-bottom:36px;
+}
+.hero-title {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(60px,9vw,120px);
+  font-weight:900; line-height:.95; letter-spacing:-.02em;
+  color:var(--white); margin-bottom:32px;
+  text-transform:uppercase;
+}
+.hero-title span { color:var(--agi); }
+.hero-sub {
+  font-family:'Barlow',sans-serif; font-size:clamp(14px,1.6vw,17px);
+  color:rgba(255,255,255,.55); max-width:540px; margin:0 auto 48px;
+  line-height:1.7;
+}
+.hero-logos {
+  display:flex; align-items:center; justify-content:center;
+  gap:28px; margin-top:16px;
+}
+.hero-logo-trackfy {
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800; font-size:20px; color:rgba(255,255,255,.5);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.hero-divider { width:1px; height:24px; background:rgba(255,255,255,.2); }
+.hero-date {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; color:rgba(255,255,255,.35);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.scroll-hint {
+  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+  font-family:'IBM Plex Mono',monospace; font-size:9px;
+  color:rgba(255,255,255,.25); letter-spacing:.12em;
+  text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px;
+}
+.scroll-hint::after {
+  content:''; width:1px; height:28px; background:rgba(255,255,255,.2);
+}
+
+/* SECTION 01: PORTFOLIO */
+#portfolio { padding:96px 48px; }
+.stats-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+  border-radius:12px; overflow:hidden;
+  margin:48px 0;
+}
+.stat-card {
+  background:var(--white); padding:40px 32px; text-align:center;
+}
+.stat-number {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(52px,6vw,80px); font-weight:900;
+  color:var(--agi); line-height:1; margin-bottom:8px;
+  letter-spacing:-.02em;
+}
+.stat-label {
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  color:var(--muted); letter-spacing:.08em; text-transform:uppercase;
+}
+.stat-sub {
+  font-family:'Barlow',sans-serif; font-size:12px;
+  color:var(--dim); margin-top:4px;
+}
+.map-wrap {
+  border-radius:12px; overflow:hidden;
+  border:1px solid var(--border);
+  margin-bottom:32px;
+}
+.barra-funda-callout {
+  background:var(--black); border-radius:12px;
+  padding:28px 32px; display:flex;
+  align-items:center; gap:24px;
+}
+.bf-dot { width:18px; height:18px; border-radius:50%; background:var(--red); flex-shrink:0; }
+.bf-text-label {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--red);
+  margin-bottom:4px;
+}
+.bf-text-title {
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:20px; color:var(--white); margin-bottom:4px;
+}
+.bf-text-sub {
+  font-family:'Barlow',sans-serif; font-size:13px;
+  color:rgba(255,255,255,.5);
+}
+.bf-stats {
+  margin-left:auto; display:flex; gap:32px;
+}
+.bf-stat-n {
+  font-family:'Barlow Condensed',sans-serif; font-weight:800;
+  font-size:28px; color:var(--white); line-height:1;
+}
+.bf-stat-l {
+  font-family:'IBM Plex Mono',monospace; font-size:9px;
+  color:rgba(255,255,255,.4); letter-spacing:.07em; text-transform:uppercase;
+}
+
+/* SECTION 02: DIFERENCIAL */
+#diferencial { padding:96px 48px; background:var(--white); }
+.dif-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:64px; align-items:start; margin-top:48px;
+}
+.feature-list { display:flex; flex-direction:column; gap:0; }
+.feature-item {
+  padding:24px 0; border-bottom:1px solid var(--border);
+  display:flex; gap:20px; align-items:flex-start;
+}
+.feature-item:first-child { border-top:1px solid var(--border); }
+.feature-num {
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  color:var(--red); font-weight:600; letter-spacing:.05em;
+  flex-shrink:0; margin-top:2px;
+}
+.feature-title {
+  font-family:'Barlow',sans-serif; font-weight:600;
+  font-size:15px; color:var(--black); margin-bottom:4px;
+}
+.feature-desc {
+  font-family:'Barlow',sans-serif; font-size:13px;
+  color:var(--dim); line-height:1.55;
+}
+.flow-connector {
+  margin-top:48px; background:var(--black); border-radius:10px;
+  padding:20px 28px; display:flex; align-items:center;
+  gap:0; overflow:hidden;
+}
+.flow-node {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  flex:1; text-align:center;
+}
+.flow-node-name {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:var(--white); letter-spacing:.06em; font-weight:600;
+}
+.flow-node-role {
+  font-family:'Barlow',sans-serif; font-size:10px;
+  color:rgba(255,255,255,.35);
+}
+.flow-arrow {
+  font-family:'IBM Plex Mono',monospace; font-size:14px;
+  color:var(--red); padding:0 4px; flex-shrink:0;
+}
+.flow-node.active .flow-node-name { color:var(--agi); }
+
+/* PHONE SIMULATOR */
+.sim-wrap {
+  display:flex; flex-direction:column; align-items:center; gap:20px;
+  position:sticky; top:80px;
+}
+.sim-label-top {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--agi);
+  text-align:center;
+}
+.phone-frame {
+  width:280px; height:560px;
+  background:#1C1C1E; border-radius:40px; padding:12px;
+  box-shadow:0 24px 64px rgba(0,0,0,.18), 0 0 0 1px rgba(255,255,255,.06);
+  position:relative;
+}
+.phone-frame::before {
+  content:''; position:absolute; top:12px; left:50%;
+  transform:translateX(-50%);
+  width:78px; height:22px;
+  background:#1C1C1E; border-radius:0 0 14px 14px; z-index:10;
+}
+.phone-screen {
+  width:100%; height:100%;
+  background:var(--white); border-radius:30px;
+  overflow:hidden; position:relative;
+}
+.tela {
+  position:absolute; inset:0;
+  opacity:0; pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  transform:translateX(10px);
+  overflow-y:auto; scrollbar-width:none;
+}
+.tela::-webkit-scrollbar { display:none; }
+.tela.active { opacity:1; pointer-events:all; transform:translateX(0); }
+.phone-nav {
+  display:flex; align-items:center; gap:16px;
+}
+.nav-btn {
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--border); background:var(--white);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:var(--black); transition:border-color .15s;
+}
+.nav-btn:hover { border-color:var(--agi); }
+.nav-btn:disabled { opacity:.25; cursor:default; }
+.sim-dots { display:flex; gap:7px; }
+.sim-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--border); cursor:pointer;
+  transition:background .15s, transform .15s;
+}
+.sim-dot.active { background:var(--agi); transform:scale(1.3); }
+@keyframes progressBar { from{width:0} to{width:100%} }
+.progress-bar-inner {
+  height:100%; background:var(--agi); border-radius:4px;
+  width:0; animation:progressBar 2.5s ease forwards;
+  animation-play-state:paused;
+}
+#ptela-3.active .progress-bar-inner { animation-play-state:running; }
+
+/* SECTION 03: CRONOGRAMA */
+#cronograma { padding:96px 48px; }
+.timeline {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:0; margin-top:56px; position:relative;
+}
+.timeline::before {
+  content:''; position:absolute;
+  top:20px; left:calc(12.5% + 20px); right:calc(12.5% + 20px);
+  height:2px; background:var(--border);
+}
+.tl-item { display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 8px; }
+.tl-dot {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--white); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  color:var(--dim); font-weight:600;
+  margin-bottom:16px; position:relative; z-index:1;
+  transition:border-color .2s, background .2s;
+}
+.tl-item.done .tl-dot { border-color:var(--agi); background:var(--agi-lt); color:var(--agi); }
+.tl-item.featured .tl-dot { border-color:var(--agi); background:var(--agi); color:var(--white); }
+.tl-week {
+  font-family:'IBM Plex Mono',monospace; font-size:9px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--red);
+  margin-bottom:6px;
+}
+.tl-title {
+  font-family:'Barlow',sans-serif; font-weight:600;
+  font-size:14px; color:var(--black); margin-bottom:6px; line-height:1.3;
+}
+.tl-desc {
+  font-family:'Barlow',sans-serif; font-size:12px;
+  color:var(--muted); line-height:1.5;
+}
+
+/* SECTION 04: CALCULADORA */
+#calculadora { padding:96px 48px; background:var(--agi); }
+#calculadora .sec-label::before { background:rgba(255,255,255,.5); }
+#calculadora .sec-label { color:rgba(255,255,255,.7); }
+#calculadora h2 { color:var(--white); }
+.calc-sub { color:rgba(255,255,255,.6); font-size:15px; max-width:520px; margin-bottom:48px; }
+
+.tiers-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:12px; margin-bottom:48px;
+}
+.tier-card {
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+  border-radius:10px; padding:24px 20px;
+  transition:background .2s, border-color .2s;
+  cursor:default;
+}
+.tier-card.featured {
+  background:var(--white); border-color:var(--white);
+}
+.tier-name {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.5); margin-bottom:12px;
+}
+.tier-card.featured .tier-name { color:var(--dim); }
+.tier-cpl {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900;
+  font-size:40px; color:var(--white); line-height:1; margin-bottom:4px;
+}
+.tier-card.featured .tier-cpl { color:var(--agi); }
+.tier-unit {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:rgba(255,255,255,.4); margin-bottom:16px;
+}
+.tier-card.featured .tier-unit { color:var(--muted); }
+.tier-features { display:flex; flex-direction:column; gap:7px; }
+.tier-feat {
+  font-family:'Barlow',sans-serif; font-size:12px;
+  color:rgba(255,255,255,.6); display:flex; gap:7px; align-items:flex-start;
+}
+.tier-card.featured .tier-feat { color:var(--dim); }
+.tier-feat::before { content:'✓'; color:var(--agi-gr); flex-shrink:0; font-weight:700; }
+.tier-badge {
+  display:inline-block; background:var(--agi-gr); color:var(--black);
+  font-family:'IBM Plex Mono',monospace; font-size:9px;
+  font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+  padding:3px 8px; border-radius:2px; margin-top:14px;
+}
+
+.calc-panel {
+  background:rgba(0,0,0,.2); border-radius:12px;
+  padding:36px 40px; backdrop-filter:blur(8px);
+}
+.calc-inputs {
+  display:grid; grid-template-columns:repeat(3,1fr) auto;
+  gap:20px; align-items:end; margin-bottom:32px;
+}
+.calc-field label {
+  display:block; font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.5); margin-bottom:8px;
+}
+.calc-field input {
+  width:100%; background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2); border-radius:6px;
+  padding:12px 14px; font-family:'Barlow Condensed',sans-serif;
+  font-size:20px; font-weight:700; color:var(--white);
+  outline:none; transition:border-color .15s;
+}
+.calc-field input:focus { border-color:rgba(255,255,255,.5); }
+.calc-btn {
+  background:var(--white); color:var(--agi);
+  border:none; border-radius:6px;
+  padding:12px 28px; font-family:'Barlow',sans-serif;
+  font-size:14px; font-weight:700; cursor:pointer;
+  white-space:nowrap; transition:background .15s;
+  height:48px;
+}
+.calc-btn:hover { background:rgba(255,255,255,.9); }
+.calc-results {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+}
+.result-card {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+  border-radius:8px; padding:20px 18px;
+}
+.result-card.featured { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.3); }
+.result-tier {
+  font-family:'IBM Plex Mono',monospace; font-size:9px;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.4); margin-bottom:10px;
+}
+.result-invest {
+  font-family:'Barlow Condensed',sans-serif; font-weight:800;
+  font-size:26px; color:var(--white); line-height:1; margin-bottom:6px;
+}
+.result-meta {
+  font-family:'Barlow',sans-serif; font-size:12px;
+  color:rgba(255,255,255,.45);
+}
+.result-roi {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:var(--agi-gr); margin-top:8px; font-weight:600;
+}
+
+/* FOOTER */
+footer {
+  background:var(--black); padding:48px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.footer-inner {
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.footer-brand {
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800; font-size:18px; color:rgba(255,255,255,.5);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.footer-meta {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:rgba(255,255,255,.25); text-align:right;
+  letter-spacing:.07em; line-height:1.8; text-transform:uppercase;
+}
+.cta-btn {
+  display:inline-block; background:var(--agi);
+  color:var(--white); border:none; border-radius:6px;
+  padding:14px 32px; font-family:'Barlow',sans-serif;
+  font-size:14px; font-weight:700; cursor:pointer;
+  text-decoration:none; letter-spacing:.02em;
+  transition:background .15s;
+}
+.cta-btn:hover { background:var(--agi-dk); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">
+    <span class="nav-brand-dot"></span>
+    Trackfy × Agibank
+  </div>
+  <ul class="nav-links">
+    <li><a href="#portfolio">01 Portfólio</a></li>
+    <li><a href="#diferencial">02 Diferencial</a></li>
+    <li><a href="#cronograma">03 Cronograma</a></li>
+    <li><a href="#calculadora">04 Calculadora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">Proposta Comercial · Confidencial · Setembro 2026</div>
+  <h1 class="hero-title">Trackfy<br><span>×</span><br>Agibank</h1>
+  <p class="hero-sub">Captação de leads qualificados no transporte público de São Paulo, via portal Wi-Fi captivo com identidade exclusiva Agibank na Estação Barra Funda.</p>
+  <div class="hero-logos">
+    <div class="hero-logo-trackfy">Trackfy</div>
+    <div class="hero-divider"></div>
+    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="72" height="45" aria-label="Agibank" opacity=".7">
+      <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+      <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+      <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+      <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+    </svg>
+    <div class="hero-divider"></div>
+    <div class="hero-date">Via V4 Company</div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- SECTION 01: PORTFÓLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="sec-label">01 / Portfólio</div>
+    <h2>A maior rede de mídia<br>Wi-Fi do transporte público de SP</h2>
+    <p style="font-size:16px;color:var(--dim);max-width:580px;line-height:1.7;">
+      Trackfy opera a infraestrutura de Wi-Fi captivo em toda a malha metroferroviária de São Paulo, transformando o momento de conexão do passageiro em uma janela de captação de leads com altíssima intencionalidade.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">128</div>
+        <div class="stat-label">Pontos de acesso</div>
+        <div class="stat-sub">hotspots ativos na rede</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">120<span style="font-size:.55em;vertical-align:middle;">+</span></div>
+        <div class="stat-label">Estações cobertas</div>
+        <div class="stat-sub">Metrô SP + CPTM</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3M<span style="font-size:.55em;vertical-align:middle;">+</span></div>
+        <div class="stat-label">Sessões por mês</div>
+        <div class="stat-sub">usuários únicos conectados</div>
+      </div>
+    </div>
+
+    <!-- MAPA DA REDE -->
+    <div class="map-wrap">
+      <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <rect width="700" height="340" fill="#141414"/>
+
+        <!-- Decoração de fundo: grid -->
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="700" height="340" fill="url(#grid)"/>
+
+        <!-- LINHA 8 (Diamante) -->
+        <line x1="40" y1="180" x2="140" y2="178" stroke="#9EA8B3" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+
+        <!-- LINHA 3 (Vermelha) -->
+        <line x1="40" y1="170" x2="650" y2="170" stroke="#EE372F" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+
+        <!-- LINHA 1 (Azul) vertical -->
+        <line x1="460" y1="50" x2="460" y2="310" stroke="#0077BB" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+
+        <!-- LINHA 2 (Verde) diagonal -->
+        <line x1="280" y1="60" x2="560" y2="270" stroke="#007E5E" stroke-width="4" stroke-linecap="round" opacity=".65"/>
+
+        <!-- LINHA 4 (Amarela) -->
+        <line x1="460" y1="170" x2="310" y2="290" stroke="#FFC700" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+
+        <!-- LINHA 9 (Esmeralda) -->
+        <line x1="310" y1="290" x2="140" y2="310" stroke="#01A9A7" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+
+        <!-- LINHA 5 (Lilas) -->
+        <line x1="400" y1="240" x2="400" y2="320" stroke="#9B2990" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+
+        <!-- Estações secundárias ao longo da L3 -->
+        <circle cx="200" cy="170" r="4" fill="rgba(255,255,255,.3)"/>
+        <circle cx="270" cy="170" r="4" fill="rgba(255,255,255,.3)"/>
+        <circle cx="340" cy="170" r="4" fill="rgba(255,255,255,.3)"/>
+        <circle cx="540" cy="170" r="4" fill="rgba(255,255,255,.3)"/>
+        <circle cx="590" cy="170" r="4" fill="rgba(255,255,255,.3)"/>
+        <circle cx="640" cy="170" r="4" fill="rgba(255,255,255,.3)"/>
+
+        <!-- República (L3+L4) -->
+        <circle cx="400" cy="170" r="6" fill="#FFC700" opacity=".8"/>
+        <text x="400" y="155" fill="rgba(255,255,255,.4)" font-family="IBM Plex Mono,monospace" font-size="8" text-anchor="middle">República</text>
+
+        <!-- Sé (L1+L3) -->
+        <circle cx="460" cy="170" r="8" fill="#0077BB" opacity=".9"/>
+        <circle cx="460" cy="170" r="4" fill="#fff"/>
+        <text x="460" y="155" fill="rgba(255,255,255,.5)" font-family="IBM Plex Mono,monospace" font-size="8" text-anchor="middle">Sé</text>
+
+        <!-- Luz (L1+L3) -->
+        <circle cx="510" cy="170" r="7" fill="rgba(255,255,255,.7)"/>
+        <circle cx="510" cy="170" r="3.5" fill="#1C1C1E"/>
+        <text x="510" y="155" fill="rgba(255,255,255,.45)" font-family="IBM Plex Mono,monospace" font-size="8" text-anchor="middle">Luz</text>
+
+        <!-- Consolação (L2+L4) -->
+        <circle cx="370" cy="235" r="5" fill="rgba(255,255,255,.5)"/>
+
+        <!-- Pinheiros (L4+L9) -->
+        <circle cx="310" cy="290" r="5" fill="rgba(255,255,255,.5)"/>
+        <text x="310" y="307" fill="rgba(255,255,255,.35)" font-family="IBM Plex Mono,monospace" font-size="8" text-anchor="middle">Pinheiros</text>
+
+        <!-- BARRA FUNDA: DESTAQUE -->
+        <!-- Glow externo -->
+        <circle cx="130" cy="174" r="28" fill="#E52420" opacity=".12"/>
+        <circle cx="130" cy="174" r="18" fill="#E52420" opacity=".2"/>
+        <!-- Dot principal -->
+        <circle cx="130" cy="174" r="11" fill="#E52420"/>
+        <circle cx="130" cy="174" r="5" fill="#fff"/>
+
+        <!-- Label Barra Funda -->
+        <rect x="58" y="196" width="144" height="38" rx="4" fill="rgba(229,36,32,.15)" stroke="rgba(229,36,32,.3)" stroke-width="1"/>
+        <text x="130" y="211" fill="#E52420" font-family="IBM Plex Mono,monospace" font-size="10" text-anchor="middle" font-weight="600" letter-spacing=".06em">BARRA FUNDA</text>
+        <text x="130" y="225" fill="rgba(255,255,255,.4)" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="middle">Linha 3 + Linha 8</text>
+
+        <!-- Legenda -->
+        <text x="660" y="30" fill="rgba(255,255,255,.25)" font-family="IBM Plex Mono,monospace" font-size="9" text-anchor="end" letter-spacing=".05em">REDE METRÔ + CPTM · SP</text>
+
+        <!-- Legenda de linhas -->
+        <rect x="440" y="295" width="8" height="4" rx="2" fill="#EE372F"/>
+        <text x="454" y="301" fill="rgba(255,255,255,.35)" font-family="IBM Plex Mono,monospace" font-size="8">L3 Vermelha</text>
+        <rect x="530" y="295" width="8" height="4" rx="2" fill="#0077BB"/>
+        <text x="544" y="301" fill="rgba(255,255,255,.35)" font-family="IBM Plex Mono,monospace" font-size="8">L1 Azul</text>
+        <rect x="608" y="295" width="8" height="4" rx="2" fill="#9EA8B3"/>
+        <text x="622" y="301" fill="rgba(255,255,255,.35)" font-family="IBM Plex Mono,monospace" font-size="8">L8</text>
+
+        <!-- Coverage indicator -->
+        <circle cx="650" cy="60" r="20" fill="rgba(38,107,255,.15)" stroke="rgba(38,107,255,.3)" stroke-width="1"/>
+        <text x="650" y="56" fill="rgba(38,107,255,.8)" font-family="IBM Plex Mono,monospace" font-size="7" text-anchor="middle" font-weight="600">120+</text>
+        <text x="650" y="67" fill="rgba(255,255,255,.3)" font-family="IBM Plex Mono,monospace" font-size="7" text-anchor="middle">estações</text>
+      </svg>
+    </div>
+
+    <!-- BARRA FUNDA CALLOUT -->
+    <div class="barra-funda-callout">
+      <div class="bf-dot"></div>
+      <div>
+        <div class="bf-text-label">Estação em destaque · Este projeto</div>
+        <div class="bf-text-title">Barra Funda</div>
+        <div class="bf-text-sub">Terminal de integração Metrô Linha 3 + CPTM Linha 8 · Zona Oeste de SP</div>
+      </div>
+      <div class="bf-stats">
+        <div>
+          <div class="bf-stat-n">~180k</div>
+          <div class="bf-stat-l">passageiros/dia</div>
+        </div>
+        <div>
+          <div class="bf-stat-n">1 ponto</div>
+          <div class="bf-stat-l">hotspot dedicado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02: DIFERENCIAL -->
+<section id="diferencial">
+  <div class="section-inner">
+    <div class="sec-label">02 / Diferencial</div>
+    <h2>Fluxo 100% com<br>a identidade Agibank</h2>
+
+    <div class="dif-grid">
+      <!-- FEATURE LIST -->
+      <div>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-num">01</div>
+            <div>
+              <div class="feature-title">Splash screen com marca própria</div>
+              <div class="feature-desc">O primeiro contato do usuário com o Wi-Fi é uma tela 100% Agibank: logo, cores, mensagem e CTA personalizados. A rede aparece como "cortesia Agibank", não como Trackfy.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-num">02</div>
+            <div>
+              <div class="feature-title">Formulário de qualificação customizado</div>
+              <div class="feature-desc">Além dos campos básicos (nome, telefone, data de nascimento), o fluxo inclui pergunta de interesse em empréstimo com faixa de valor — gerando leads já segmentados por intenção.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-num">03</div>
+            <div>
+              <div class="feature-title">Criativo pós-cadastro</div>
+              <div class="feature-desc">Após o cadastro, o usuário vê um criativo Agibank antes de receber o acesso: banner estático, vídeo institucional ou pesquisa de satisfação. Janela de mídia exclusiva sem competição.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-num">04</div>
+            <div>
+              <div class="feature-title">Entrega de leads via API em tempo real</div>
+              <div class="feature-desc">Ao concluir o cadastro, o lead é entregue via webhook para a V4 Company em menos de 2 segundos. Integração Linktel → Trackfy → V4, com payload configurável (campos, opt-ins, timestamp, estação).</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-num">05</div>
+            <div>
+              <div class="feature-title">Ativação via WhatsApp Business</div>
+              <div class="feature-desc">A V4 Company dispara uma mensagem via número verificado Agibank no WhatsApp Business minutos após a conexão: "Seu Wi-Fi na Barra Funda foi uma cortesia Agibank. Temos uma oferta de crédito para você."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLOW CONNECTOR -->
+        <div class="flow-connector" style="margin-top:32px;">
+          <div class="flow-node">
+            <div class="flow-node-name">LINKTEL</div>
+            <div class="flow-node-role">Infraestrutura</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="flow-node-name">TRACKFY</div>
+            <div class="flow-node-role">Portal captivo</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node active">
+            <div class="flow-node-name">V4 COMPANY</div>
+            <div class="flow-node-role">Gestão de leads</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="flow-node-name">WPP BUSINESS</div>
+            <div class="flow-node-role">Ativação Agibank</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHONE SIMULATOR -->
+      <div class="sim-wrap">
+        <div class="sim-label-top" id="pStepLabel">PASSO 01 · Oferta exclusiva</div>
+        <div style="display:flex;align-items:center;gap:20px;">
+          <button class="nav-btn" id="pBtnPrev" onclick="pNavigate(-1)" disabled>&#8592;</button>
+          <div class="phone-frame">
+            <div class="phone-screen">
+
+              <!-- TELA 01 -->
+              <div class="tela active" id="ptela-0">
+                <div style="background:#266BFF;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;position:relative;">
+                  <div style="position:absolute;top:0;left:0;right:0;height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;padding-top:4px;">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.6);">09:14</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.6);">WiFi</span>
+                  </div>
+                  <div style="margin-bottom:22px;margin-top:16px;">
+                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="110" height="69" aria-label="Agibank">
+                      <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                      <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                      <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                      <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+                    </svg>
+                  </div>
+                  <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;color:#fff;line-height:1.2;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px;">
+                    Seu Wi-Fi é uma<br>cortesia Agibank
+                  </div>
+                  <div style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,.7);margin-bottom:28px;">Estação Barra Funda · Rede Trackfy</div>
+                  <button onclick="pGoTo(1)" style="background:#fff;color:#266BFF;border:none;border-radius:4px;padding:12px 28px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;max-width:200px;">Conectar agora</button>
+                  <div style="position:absolute;bottom:16px;font-family:'Barlow',sans-serif;font-size:10px;color:rgba(255,255,255,.4);">🔒 Acesso seguro e gratuito</div>
+                </div>
+              </div>
+
+              <!-- TELA 02 -->
+              <div class="tela" id="ptela-1">
+                <div style="background:#fff;min-height:100%;display:flex;flex-direction:column;">
+                  <div style="background:#266BFF;padding:8px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="60" height="37" aria-label="Agibank">
+                      <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                      <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                      <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                      <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+                    </svg>
+                    <div style="font-family:'Barlow',sans-serif;font-size:9px;color:rgba(255,255,255,.7);margin-left:auto;">Cadastro seguro</div>
+                  </div>
+                  <div style="padding:16px 14px;flex:1;">
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#111;margin-bottom:14px;text-transform:uppercase;">Complete seu cadastro</div>
+                    <div style="margin-bottom:10px;">
+                      <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">Nome completo *</div>
+                      <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;">João da Silva</div>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                      <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">Telefone *</div>
+                      <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;display:flex;gap:6px;">(11) 9 8765-4321</div>
+                    </div>
+                    <div style="margin-bottom:14px;">
+                      <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">Data de nascimento *</div>
+                      <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;">15/04/1990</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                      <div style="width:8px;height:2px;background:#E52420;"></div>
+                      <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#E52420;">Qualificação</span>
+                      <div style="flex:1;height:1px;background:#D8D4CE;"></div>
+                    </div>
+                    <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:8px;">Interesse em empréstimo?</div>
+                    <div style="display:flex;gap:8px;margin-bottom:10px;">
+                      <div style="flex:1;border:1px solid #266BFF;border-radius:3px;padding:8px;font-size:12px;font-weight:600;color:#266BFF;text-align:center;">Sim</div>
+                      <div style="flex:1;border:1px solid #D8D4CE;border-radius:3px;padding:8px;font-size:12px;color:#888;text-align:center;">Não</div>
+                    </div>
+                    <div style="border:1px solid #266BFF;border-radius:3px;padding:8px 10px;font-size:12px;color:#111;display:flex;justify-content:space-between;margin-bottom:12px;">
+                      <span>R$ 1.000 – R$ 5.000</span><span style="color:#888;">▾</span>
+                    </div>
+                    <button onclick="pGoTo(2)" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:100%;">Concluir cadastro</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TELA 03 -->
+              <div class="tela" id="ptela-2">
+                <div style="background:#fff;height:100%;display:flex;flex-direction:column;">
+                  <div style="background:#266BFF;flex:0 0 58%;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+                    <div style="position:absolute;top:10px;left:10px;background:rgba(0,0,0,.3);padding:2px 7px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#fff;letter-spacing:.05em;">PUBLICIDADE</div>
+                    <div style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.4);padding:2px 7px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#fff;">0:15</div>
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:#fff;text-align:center;line-height:1.1;margin-bottom:16px;text-transform:uppercase;">Crédito rápido,<br>sem burocracia</div>
+                    <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;">
+                      <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:15px solid #fff;margin-left:3px;"></div>
+                    </div>
+                  </div>
+                  <div style="flex:1;padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;">
+                    <div style="font-size:12px;color:#333;line-height:1.5;">Empréstimo pessoal até R$ 35.000, aprovação em minutos.</div>
+                    <div>
+                      <button onclick="pGoTo(3)" style="background:transparent;color:#266BFF;border:2px solid #266BFF;border-radius:3px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-bottom:6px;">Simular meu empréstimo →</button>
+                      <div style="text-align:center;font-size:10px;color:#888;">Acesso liberado em instantes.</div>
+                      <button onclick="pGoTo(3)" style="background:transparent;border:none;color:#888;font-size:10px;cursor:pointer;width:100%;padding:6px 0;text-decoration:underline;">Pular →</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TELA 04 -->
+              <div class="tela" id="ptela-3">
+                <div style="background:#fff;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;">
+                  <div style="width:64px;height:64px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+                    <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><path d="M9 18L15 24L27 12" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;color:#111;text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px;">Acesso liberado!</div>
+                  <div style="font-size:12px;color:#666;line-height:1.6;margin-bottom:24px;max-width:200px;">Você será redirecionado automaticamente.</div>
+                  <div style="width:100%;max-width:200px;height:5px;background:#D8D4CE;border-radius:4px;overflow:hidden;margin-bottom:24px;">
+                    <div class="progress-bar-inner"></div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px;opacity:.4;">
+                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="44" height="28">
+                      <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                      <path fill="#266BFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                      <path fill="#266BFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                      <path fill-rule="evenodd" fill="#266BFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+                    </svg>
+                    <div style="width:1px;height:14px;background:#D8D4CE;"></div>
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#111;">Trackfy</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TELA 05 -->
+              <div class="tela" id="ptela-4">
+                <div style="background:linear-gradient(160deg,#2C2C2E 0%,#1C1C1E 100%);height:100%;display:flex;flex-direction:column;align-items:center;padding:0;">
+                  <div style="width:100%;padding:8px 16px 4px;display:flex;justify-content:space-between;">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#fff;">09:14</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.5);">WiFi</span>
+                  </div>
+                  <div style="text-align:center;margin-top:12px;margin-bottom:4px;">
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:200;font-size:52px;color:#fff;line-height:1;letter-spacing:-2px;">09:14</div>
+                    <div style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;">quinta-feira, 3 de setembro</div>
+                  </div>
+                  <div style="width:calc(100% - 16px);background:rgba(255,255,255,.93);border-radius:12px;padding:10px 12px;margin-top:16px;">
+                    <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px;">
+                      <div style="width:14px;height:14px;background:#25D366;border-radius:3px;display:flex;align-items:center;justify-content:center;">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                      </div>
+                      <span style="font-size:10px;font-weight:600;color:#1C1C1E;">WhatsApp Business</span>
+                      <span style="font-size:9px;color:#8E8E93;margin-left:auto;">agora</span>
+                    </div>
+                    <div style="display:flex;gap:7px;align-items:flex-start;">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#266BFF;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:4px;">
+                        <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="20" height="12">
+                          <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                          <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                          <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                          <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <div style="font-size:11px;font-weight:700;color:#1C1C1E;margin-bottom:2px;">Agibank</div>
+                        <div style="font-size:11px;color:#3C3C3E;line-height:1.4;">Olá, João! Seu Wi-Fi na Barra Funda foi uma cortesia Agibank. Temos uma oferta de crédito especial para você. Toque para conhecer →</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:rgba(255,255,255,.3);letter-spacing:.07em;text-align:center;">WHATSAPP BUSINESS · V4 COMPANY</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <button class="nav-btn" id="pBtnNext" onclick="pNavigate(1)">&#8594;</button>
+        </div>
+        <div class="sim-dots">
+          <div class="sim-dot active" onclick="pGoTo(0)"></div>
+          <div class="sim-dot" onclick="pGoTo(1)"></div>
+          <div class="sim-dot" onclick="pGoTo(2)"></div>
+          <div class="sim-dot" onclick="pGoTo(3)"></div>
+          <div class="sim-dot" onclick="pGoTo(4)"></div>
+        </div>
+        <a href="index.html" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--agi);letter-spacing:.07em;text-decoration:none;opacity:.7;">Ver simulação em tela cheia →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03: CRONOGRAMA -->
+<section id="cronograma">
+  <div class="section-inner">
+    <div class="sec-label">03 / Cronograma</div>
+    <h2>Ativo em 1 semana</h2>
+    <p style="font-size:16px;color:var(--dim);max-width:520px;line-height:1.7;margin-bottom:0;">
+      O lado Trackfy é configurado e ativo em até 7 dias. O prazo total depende da agilidade de aprovação dos templates WhatsApp Business pela Meta e da integração da API no lado V4 Company.
+    </p>
+
+    <div class="timeline">
+      <div class="tl-item done">
+        <div class="tl-dot">01</div>
+        <div class="tl-week">Semana 1 · Dias 1–2</div>
+        <div class="tl-title">Briefing e aprovação de criativos</div>
+        <div class="tl-desc">Alinhamento de identidade visual, textos do fluxo e campos do formulário de qualificação.</div>
+      </div>
+      <div class="tl-item done">
+        <div class="tl-dot">02</div>
+        <div class="tl-week">Semana 1 · Dias 3–5</div>
+        <div class="tl-title">Configuração da rede Trackfy</div>
+        <div class="tl-desc">Ativação do hotspot Barra Funda com fluxo Agibank: splash, formulário e criativo pós-cadastro configurados.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">03</div>
+        <div class="tl-week">Semana 2</div>
+        <div class="tl-title">Integração API Linktel → V4</div>
+        <div class="tl-desc">Configuração do webhook de entrega de leads. Testes de end-to-end com payload completo (nome, telefone, opt-ins, estação, timestamp).</div>
+      </div>
+      <div class="tl-item featured">
+        <div class="tl-dot">GO</div>
+        <div class="tl-week">Semana 3–4</div>
+        <div class="tl-title">Go-live + WhatsApp Business</div>
+        <div class="tl-desc">Ativação completa com WhatsApp Business verificado Agibank. Início da captação, monitoramento de métricas em tempo real.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;background:var(--white);border-radius:10px;padding:24px 28px;border:1px solid var(--border);display:flex;gap:24px;align-items:flex-start;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;margin-top:2px;">Nota</div>
+      <div style="font-family:'Barlow',sans-serif;font-size:14px;color:var(--dim);line-height:1.7;">
+        O prazo de aprovação de templates no WhatsApp Business pela Meta varia de 24h a 7 dias úteis. Recomendamos submeter os templates no Dia 1, em paralelo ao briefing de criativos, para garantir que a ativação completa ocorra até a Semana 3.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04: CALCULADORA -->
+<section id="calculadora" style="padding:96px 48px;background:var(--agi);">
+  <div class="section-inner">
+    <div class="sec-label">04 / Calculadora · Exclusivo Agibank</div>
+    <h2 style="color:var(--white);">Precificação<br>exclusiva para este projeto</h2>
+    <p class="calc-sub">Quatro tiers de qualificação com CPL diferenciado. Para o fluxo completo desta proposta, o tier recomendado é o <strong style="color:var(--white);">Completo</strong>.</p>
+
+    <div class="tiers-grid">
+      <div class="tier-card">
+        <div class="tier-name">Tier Base</div>
+        <div class="tier-cpl">R$2<span style="font-size:.5em;">,00</span></div>
+        <div class="tier-unit">por lead</div>
+        <div class="tier-features">
+          <div class="tier-feat">Splash com marca própria</div>
+          <div class="tier-feat">Formulário básico (nome + tel)</div>
+          <div class="tier-feat">Acesso liberado</div>
+        </div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Tier Criativo</div>
+        <div class="tier-cpl">R$2<span style="font-size:.5em;">,60</span></div>
+        <div class="tier-unit">por lead</div>
+        <div class="tier-features">
+          <div class="tier-feat">Tudo do Tier Base</div>
+          <div class="tier-feat">Criativo pós-cadastro (banner/vídeo)</div>
+          <div class="tier-feat">Janela de mídia exclusiva</div>
+        </div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Tier Qualificado</div>
+        <div class="tier-cpl">R$3<span style="font-size:.5em;">,60</span></div>
+        <div class="tier-unit">por lead</div>
+        <div class="tier-features">
+          <div class="tier-feat">Tudo do Tier Criativo</div>
+          <div class="tier-feat">Formulário de qualificação customizado</div>
+          <div class="tier-feat">Segmentação por intenção</div>
+        </div>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-name">Tier Completo</div>
+        <div class="tier-cpl">R$4<span style="font-size:.5em;">,68</span></div>
+        <div class="tier-unit">por lead</div>
+        <div class="tier-features">
+          <div class="tier-feat">Tudo do Tier Qualificado</div>
+          <div class="tier-feat">Integração API em tempo real</div>
+          <div class="tier-feat">Ativação WhatsApp Business</div>
+        </div>
+        <div class="tier-badge">Recomendado</div>
+      </div>
+    </div>
+
+    <div class="calc-panel">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:24px;">Simule seu investimento</div>
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label>Leads mensais</label>
+          <input type="number" id="calcLeads" value="5000" min="100" step="100" oninput="calcUpdate()">
+        </div>
+        <div class="calc-field">
+          <label>Conversão em cliente (%)</label>
+          <input type="number" id="calcConv" value="5" min="0.1" max="100" step="0.5" oninput="calcUpdate()">
+        </div>
+        <div class="calc-field">
+          <label>Ticket médio (R$)</label>
+          <input type="number" id="calcTicket" value="8000" min="100" step="500" oninput="calcUpdate()">
+        </div>
+        <div>
+          <button class="calc-btn" onclick="calcUpdate()">Calcular</button>
+        </div>
+      </div>
+
+      <div class="calc-results" id="calcResults">
+        <!-- preenchido pelo JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand" style="margin-bottom:8px;">Trackfy</div>
+      <div style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,.35);max-width:320px;line-height:1.6;">
+        Plataforma de mídia Wi-Fi captivo no transporte público de São Paulo. Proposta elaborada para a V4 Company.
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <a href="mailto:comercial@trackfy.com.br" class="cta-btn" style="margin-bottom:16px;display:inline-block;">Avançar com esta proposta →</a>
+      <div class="footer-meta">
+        Proposta confidencial<br>Setembro 2026 · V4 Company<br>Não compartilhar sem autorização
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* PHONE SIMULATOR */
+const P_LABELS = [
+  'PASSO 01 · Oferta exclusiva',
+  'PASSO 02 · Cadastro qualificado',
+  'PASSO 02.5 · Criativo',
+  'PASSO 03 · Acesso liberado',
+  'PASSO 05 · WhatsApp Business',
+];
+let pCurrent = 0;
+const P_TOTAL = 5;
+
+function pGoTo(idx) {
+  document.getElementById('ptela-' + pCurrent).classList.remove('active');
+  document.querySelectorAll('.sim-dot')[pCurrent].classList.remove('active');
+  pCurrent = idx;
+  document.getElementById('ptela-' + pCurrent).classList.add('active');
+  document.querySelectorAll('.sim-dot')[pCurrent].classList.add('active');
+  document.getElementById('pStepLabel').textContent = P_LABELS[pCurrent];
+  document.getElementById('pBtnPrev').disabled = pCurrent === 0;
+  document.getElementById('pBtnNext').disabled = pCurrent === P_TOTAL - 1;
+  document.getElementById('ptela-' + pCurrent).scrollTop = 0;
+  if (pCurrent === 3) {
+    clearTimeout(window._pAuto);
+    const bar = document.querySelector('.progress-bar-inner');
+    if (bar) { bar.style.animation = 'none'; bar.offsetHeight; bar.style.animation = ''; }
+    window._pAuto = setTimeout(() => pGoTo(4), 3000);
+  } else {
+    clearTimeout(window._pAuto);
+  }
+}
+
+function pNavigate(dir) {
+  const next = pCurrent + dir;
+  if (next >= 0 && next < P_TOTAL) pGoTo(next);
+}
+
+/* CALCULATOR */
+const TIERS = [
+  { name:'Base', cpl:2.00 },
+  { name:'Criativo', cpl:2.60 },
+  { name:'Qualificado', cpl:3.60 },
+  { name:'Completo', cpl:4.68 },
+];
+
+function fmt(n) {
+  return 'R$ ' + n.toLocaleString('pt-BR', { minimumFractionDigits:0, maximumFractionDigits:0 });
+}
+
+function calcUpdate() {
+  const leads = parseFloat(document.getElementById('calcLeads').value) || 1000;
+  const conv = parseFloat(document.getElementById('calcConv').value) / 100 || 0.03;
+  const ticket = parseFloat(document.getElementById('calcTicket').value) || 8000;
+  const receita = leads * conv * ticket;
+
+  const html = TIERS.map((t, i) => {
+    const inv = leads * t.cpl;
+    const roi = receita / inv;
+    const feat = i === 3;
+    return `<div class="result-card${feat ? ' featured' : ''}">
+      <div class="result-tier">${t.name} · R$${t.cpl.toFixed(2)}/lead</div>
+      <div class="result-invest">${fmt(inv)}<span style="font-size:.45em;font-weight:400;opacity:.7;">/mês</span></div>
+      <div class="result-meta">${Math.round(leads * conv)} clientes est. · ${fmt(receita)} receita</div>
+      <div class="result-roi">ROI ${roi.toFixed(1)}x</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('calcResults').innerHTML = html;
+}
+
+calcUpdate();
+</script>
+</body>
+</html>
