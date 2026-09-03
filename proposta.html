@@ -418,9 +418,15 @@ h3 {
   background:rgba(0,0,0,.2); border-radius:12px;
   padding:36px 40px; backdrop-filter:blur(8px);
 }
-.calc-inputs {
-  display:grid; grid-template-columns:repeat(3,1fr) auto;
-  gap:20px; align-items:end; margin-bottom:32px;
+.calc-row {
+  display:grid; gap:16px; align-items:end; margin-bottom:16px;
+}
+.calc-row-main { grid-template-columns:1fr 1fr auto; }
+.calc-row-opt  { grid-template-columns:1fr 1fr 1fr; margin-bottom:28px; }
+.calc-opt-hint {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:rgba(255,255,255,.3); letter-spacing:.08em;
+  text-transform:uppercase; align-self:end; padding-bottom:14px;
 }
 .calc-field label {
   display:block; font-family:'IBM Plex Mono',monospace;
@@ -435,13 +441,14 @@ h3 {
   outline:none; transition:border-color .15s;
 }
 .calc-field input:focus { border-color:rgba(255,255,255,.5); }
+.calc-field.highlight input { border-color:rgba(255,255,255,.45); background:rgba(255,255,255,.14); }
 .calc-btn {
   background:var(--white); color:var(--agi);
   border:none; border-radius:6px;
   padding:12px 28px; font-family:'Barlow',sans-serif;
   font-size:14px; font-weight:700; cursor:pointer;
   white-space:nowrap; transition:background .15s;
-  height:48px;
+  height:48px; align-self:end;
 }
 .calc-btn:hover { background:rgba(255,255,255,.9); }
 .calc-results {
@@ -455,20 +462,30 @@ h3 {
 .result-tier {
   font-family:'IBM Plex Mono',monospace; font-size:9px;
   letter-spacing:.1em; text-transform:uppercase;
-  color:rgba(255,255,255,.4); margin-bottom:10px;
+  color:rgba(255,255,255,.4); margin-bottom:12px;
 }
-.result-invest {
-  font-family:'Barlow Condensed',sans-serif; font-weight:800;
-  font-size:26px; color:var(--white); line-height:1; margin-bottom:6px;
+.result-row {
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:7px;
 }
-.result-meta {
-  font-family:'Barlow',sans-serif; font-size:12px;
-  color:rgba(255,255,255,.45);
+.result-row-label {
+  font-family:'Barlow',sans-serif; font-size:11px;
+  color:rgba(255,255,255,.4);
+}
+.result-row-val {
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:16px; color:var(--white);
+}
+.result-row-val.green { color:var(--agi-gr); }
+.result-divider {
+  border:none; border-top:1px solid rgba(255,255,255,.12);
+  margin:10px 0;
 }
 .result-roi {
   font-family:'IBM Plex Mono',monospace; font-size:10px;
-  color:var(--agi-gr); margin-top:8px; font-weight:600;
+  color:rgba(255,255,255,.4); margin-top:8px;
 }
+.result-roi span { color:var(--agi-gr); font-weight:600; }
 
 /* FOOTER */
 footer {
@@ -1032,23 +1049,30 @@ footer {
     </div>
 
     <div class="calc-panel">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:24px;">Simule seu investimento</div>
-      <div class="calc-inputs">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:24px;">Simule o retorno da V4 Company</div>
+      <div class="calc-row calc-row-main">
         <div class="calc-field">
           <label>Leads mensais</label>
           <input type="number" id="calcLeads" value="5000" min="100" step="100" oninput="calcUpdate()">
         </div>
+        <div class="calc-field highlight">
+          <label>CPL cobrado da Agibank (R$)</label>
+          <input type="number" id="calcCplAgi" value="0" min="0" step="0.5" oninput="calcUpdate()">
+        </div>
+        <div>
+          <button class="calc-btn" onclick="calcUpdate()">Calcular</button>
+        </div>
+      </div>
+      <div class="calc-row calc-row-opt">
         <div class="calc-field">
           <label>Conversão em cliente (%)</label>
           <input type="number" id="calcConv" value="0" min="0" max="100" step="0.5" oninput="calcUpdate()">
         </div>
         <div class="calc-field">
-          <label>Ticket médio (R$)</label>
+          <label>Ticket médio Agibank (R$)</label>
           <input type="number" id="calcTicket" value="0" min="0" step="500" oninput="calcUpdate()">
         </div>
-        <div>
-          <button class="calc-btn" onclick="calcUpdate()">Calcular</button>
-        </div>
+        <div class="calc-opt-hint">Opcional · ROI da Agibank</div>
       </div>
 
       <div class="calc-results" id="calcResults">
@@ -1128,24 +1152,63 @@ function fmt(n) {
 }
 
 function calcUpdate() {
-  const leads = parseFloat(document.getElementById('calcLeads').value) || 5000;
-  const conv = parseFloat(document.getElementById('calcConv').value) / 100 || 0.03;
-  const ticket = parseFloat(document.getElementById('calcTicket').value) || 0;
-  const receita = leads * conv * ticket;
-  const hasRoi = conv > 0 && ticket > 0;
+  const leads   = parseFloat(document.getElementById('calcLeads').value)   || 5000;
+  const cplAgi  = parseFloat(document.getElementById('calcCplAgi').value)  || 0;
+  const convRaw = parseFloat(document.getElementById('calcConv').value);
+  const conv    = convRaw > 0 ? convRaw / 100 : 0;
+  const ticket  = parseFloat(document.getElementById('calcTicket').value)  || 0;
+
+  const hasAgi  = cplAgi > 0;
+  const hasRoi  = conv > 0 && ticket > 0;
+  const receitaV4 = hasAgi ? leads * cplAgi : 0;
 
   const html = TIERS.map((t, i) => {
-    const inv = leads * t.cpl;
-    const roi = hasRoi ? receita / inv : null;
+    const custoV4  = leads * t.cpl;
+    const margemV4 = hasAgi ? receitaV4 - custoV4 : null;
+    const margemPct = (hasAgi && receitaV4 > 0)
+      ? Math.round(margemV4 / receitaV4 * 100)
+      : null;
     const feat = i === 2;
-    const metaLine = hasRoi
-      ? `<div class="result-meta">${Math.round(leads * conv)} clientes est. · ${fmt(receita)} receita</div>`
-      : `<div class="result-meta" style="opacity:.35;">Preencha conversão e ticket para simular ROI</div>`;
-    const roiLine = roi !== null ? `<div class="result-roi">ROI ${roi.toFixed(1)}x</div>` : '';
+
+    const recLinha = hasAgi
+      ? `<div class="result-row">
+           <span class="result-row-label">Receita V4 ← Agibank</span>
+           <span class="result-row-val">${fmt(receitaV4)}</span>
+         </div>`
+      : `<div class="result-row" style="opacity:.28;">
+           <span class="result-row-label">Receita V4 ← Agibank</span>
+           <span class="result-row-val">—</span>
+         </div>`;
+
+    const marClass = (margemV4 !== null && margemV4 >= 0) ? ' green' : '';
+    const marSinal = (margemV4 !== null && margemV4 >= 0) ? '+' : '';
+    const marLinha = hasAgi
+      ? `<div class="result-row">
+           <span class="result-row-label">Margem V4</span>
+           <span class="result-row-val${marClass}">${marSinal}${fmt(margemV4)} · ${margemPct}%</span>
+         </div>`
+      : `<div class="result-row" style="opacity:.28;">
+           <span class="result-row-label">Margem V4</span>
+           <span class="result-row-val">—</span>
+         </div>`;
+
+    let roiLinha = '';
+    if (hasAgi && hasRoi) {
+      const clientes = Math.round(leads * conv);
+      const recAgi   = clientes * ticket;
+      roiLinha = `<div class="result-roi">${clientes} clientes Agibank · <span>${fmt(recAgi)} receita</span></div>`;
+    } else if (!hasAgi) {
+      roiLinha = `<div class="result-roi" style="opacity:.28;">Informe o CPL Agibank para ver a margem</div>`;
+    }
+
     return `<div class="result-card${feat ? ' featured' : ''}">
-      <div class="result-tier">${t.name} · R$${t.cpl.toFixed(2)}/lead</div>
-      <div class="result-invest">${fmt(inv)}<span style="font-size:.45em;font-weight:400;opacity:.7;">/mês</span></div>
-      ${metaLine}${roiLine}
+      <div class="result-tier">${t.name} · R$${t.cpl.toFixed(2)}/lead (custo V4)</div>
+      <div class="result-row">
+        <span class="result-row-label">Custo V4 → Trackfy</span>
+        <span class="result-row-val">${fmt(custoV4)}/mês</span>
+      </div>
+      <hr class="result-divider">
+      ${recLinha}${marLinha}${roiLinha}
     </div>`;
   }).join('');
 
