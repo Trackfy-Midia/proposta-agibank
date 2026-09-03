@@ -23,7 +23,7 @@
 <title>Proposta Comercial · Trackfy × Agibank · V4 Company</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:       #F0EDE8;
@@ -52,11 +52,14 @@ body { background:var(--bg); color:var(--black); font-family:'Barlow',sans-serif
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 .nav-brand {
-  font-family:'Barlow Condensed',sans-serif; font-weight:800;
-  font-size:15px; letter-spacing:.08em; color:var(--white);
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:16px; letter-spacing:0; color:var(--white);
   display:flex; align-items:center; gap:10px;
 }
-.nav-brand-dot { width:8px; height:8px; border-radius:50%; background:var(--red); }
+.nav-logo-bars { display:flex; gap:2px; align-items:flex-end; }
+.nav-logo-bar  { width:4px; background:var(--red); }
+.nav-logo-bar:nth-child(1) { height:14px; }
+.nav-logo-bar:nth-child(2) { height:11px; }
 .nav-links { display:flex; gap:32px; list-style:none; }
 .nav-links a {
   font-family:'IBM Plex Mono',monospace; font-size:10px;
@@ -129,10 +132,14 @@ h3 {
   gap:28px; margin-top:16px;
 }
 .hero-logo-trackfy {
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:800; font-size:20px; color:rgba(255,255,255,.5);
-  letter-spacing:.1em; text-transform:uppercase;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700; font-size:20px; color:rgba(255,255,255,.5);
+  display:flex; align-items:center; gap:10px;
 }
+.hero-logo-bars { display:flex; gap:2px; align-items:flex-end; }
+.hero-logo-bar  { width:4px; background:var(--red); opacity:.7; }
+.hero-logo-bar:nth-child(1) { height:14px; }
+.hero-logo-bar:nth-child(2) { height:11px; }
 .hero-divider { width:1px; height:24px; background:rgba(255,255,255,.2); }
 .hero-date {
   font-family:'IBM Plex Mono',monospace;
@@ -473,10 +480,14 @@ footer {
   display:flex; align-items:center; justify-content:space-between;
 }
 .footer-brand {
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:800; font-size:18px; color:rgba(255,255,255,.5);
-  letter-spacing:.1em; text-transform:uppercase;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700; font-size:18px; color:rgba(255,255,255,.5);
+  display:flex; align-items:center; gap:10px;
 }
+.footer-logo-bars { display:flex; gap:2px; align-items:flex-end; }
+.footer-logo-bar  { width:4px; background:var(--red); opacity:.7; }
+.footer-logo-bar:nth-child(1) { height:14px; }
+.footer-logo-bar:nth-child(2) { height:11px; }
 .footer-meta {
   font-family:'IBM Plex Mono',monospace; font-size:10px;
   color:rgba(255,255,255,.25); text-align:right;
@@ -498,8 +509,12 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-brand">
-    <span class="nav-brand-dot"></span>
-    Trackfy × Agibank
+    <div class="nav-logo-bars">
+      <div class="nav-logo-bar"></div>
+      <div class="nav-logo-bar"></div>
+    </div>
+    Trackfy
+    <span style="color:rgba(255,255,255,.3);font-weight:400;font-size:13px;">× Agibank</span>
   </div>
   <ul class="nav-links">
     <li><a href="#portfolio">01 Portfólio</a></li>
@@ -515,7 +530,10 @@ footer {
   <h1 class="hero-title">Trackfy<br><span>×</span><br>Agibank</h1>
   <p class="hero-sub">Captação de leads qualificados no transporte público de São Paulo, via portal Wi-Fi captivo com identidade exclusiva Agibank na Estação Barra Funda.</p>
   <div class="hero-logos">
-    <div class="hero-logo-trackfy">Trackfy</div>
+    <div class="hero-logo-trackfy">
+        <div class="hero-logo-bars"><div class="hero-logo-bar"></div><div class="hero-logo-bar"></div></div>
+        Trackfy
+      </div>
     <div class="hero-divider"></div>
     <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="72" height="45" aria-label="Agibank" opacity=".7">
       <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
@@ -1047,7 +1065,10 @@ footer {
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand" style="margin-bottom:8px;">Trackfy</div>
+      <div class="footer-brand" style="margin-bottom:8px;">
+          <div class="footer-logo-bars"><div class="footer-logo-bar"></div><div class="footer-logo-bar"></div></div>
+          Trackfy
+        </div>
       <div style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,.35);max-width:320px;line-height:1.6;">
         Plataforma de mídia Wi-Fi captivo no transporte público de São Paulo. Proposta elaborada para a V4 Company.
       </div>
