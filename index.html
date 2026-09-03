@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  const HASH = 'cfa2d3a15562ba502db104053b696312f96079437de76ee87a25a0346b188ff3';
+  const ok = sessionStorage.getItem('auth_ok');
+  if (ok === HASH) return;
+  const pwd = prompt('Senha de acesso:');
+  if (!pwd) { document.documentElement.innerHTML = ''; return; }
+  async function check(p) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(p));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  check(pwd).then(h => {
+    if (h === HASH) { sessionStorage.setItem('auth_ok', HASH); }
+    else { document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center"><p style="color:#666">Senha incorreta.</p></body>'; }
+  });
+})();
+</script>
+<title>Proposta Comercial · V4 Company × Agibank · Trackfy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F0EDE8;
+    --surface:   #E8E4DE;
+    --border:    #CECCCA;
+    --black:     #111111;
+    --red:       #E52420;
+    --muted:     #888880;
+    --dim:       #66665F;
+    --white:     #FFFFFF;
+    --agi:       #266BFF;
+    --agi-dark:  #1A56DD;
+    --agi-light: rgba(38,107,255,0.08);
+    --agi-green: #2FC750;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--black);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* STORYBOARD */
+  #storyboard {
+    padding: 44px 48px 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sb-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .sb-label::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 2px;
+    background: var(--red);
+  }
+  .sb-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .sb-card {
+    flex: 0 0 160px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+    position: relative;
+  }
+  .sb-card:not(:last-child) { border-right: none; }
+  .sb-card:hover { border-color: var(--agi); z-index: 1; box-shadow: 0 0 0 1px var(--agi); }
+  .sb-card.active { border-color: var(--agi); background: var(--agi-light); z-index: 1; box-shadow: 0 0 0 1px var(--agi); }
+  .sb-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .sb-card.active .sb-num { color: var(--agi); }
+  .sb-name {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .sb-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .sb-connector {
+    flex: 0 0 180px;
+    background: var(--black);
+    border: 1px solid var(--black);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sb-connector-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .sb-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sb-flow-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sb-flow-item::before {
+    content: '→';
+    color: var(--red);
+    font-size: 10px;
+  }
+  .sb-flow-item:first-child::before { content: ''; width: 10px; }
+
+  /* SIMULATOR */
+  #simulator {
+    padding: 44px 48px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .sim-step-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--agi);
+  }
+  .phone-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .phone-frame {
+    width: 320px;
+    height: 620px;
+    background: #1C1C1E;
+    border-radius: 44px;
+    padding: 14px;
+    box-shadow: 0 24px 64px rgba(0,0,0,.22), 0 0 0 1px rgba(255,255,255,.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-frame::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 26px;
+    background: #1C1C1E;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+  }
+  .tela {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+    transform: translateX(12px);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .tela::-webkit-scrollbar { display: none; }
+  .tela.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+  }
+  .nav-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--black);
+    transition: border-color .15s, background .15s;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .nav-arrow:hover { border-color: var(--agi); background: var(--agi-light); }
+  .nav-arrow:disabled { opacity: .3; cursor: default; }
+  .sim-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .sim-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background .15s, transform .15s;
+  }
+  .sim-dot.active {
+    background: var(--agi);
+    transform: scale(1.25);
+  }
+
+  /* PROGRESS BAR */
+  @keyframes progressBar {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: var(--agi);
+    border-radius: 4px;
+    width: 0%;
+    animation: progressBar 2.5s ease forwards;
+    animation-play-state: paused;
+  }
+  #tela-3.active .progress-bar-inner {
+    animation-play-state: running;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header style="display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid var(--border);background:var(--white);">
+  <div style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;letter-spacing:.5px;">
+    <div style="display:flex;gap:2px;align-items:flex-end;">
+      <div style="width:4px;height:14px;background:var(--red);"></div>
+      <div style="width:4px;height:11px;background:var(--red);"></div>
+    </div>
+    Trackfy
+    <span style="font-family:'Barlow',sans-serif;font-size:13px;font-weight:400;color:var(--muted);margin-left:8px;letter-spacing:0;">× V4 Company × Agibank</span>
+  </div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);text-align:right;line-height:1.8;letter-spacing:.06em;">
+    PROPOSTA COMERCIAL<br>SET 2026
+  </div>
+</header>
+
+<!-- STORYBOARD -->
+<section id="storyboard">
+  <div class="sb-label">Fluxo da campanha · 5 passos</div>
+  <div class="sb-row">
+    <div class="sb-card active" data-tela="0" onclick="goToTela(0)">
+      <div class="sb-num">01</div>
+      <div class="sb-name">Oferta exclusiva</div>
+      <div class="sb-desc">Splash screen Agibank na rede Wi-Fi</div>
+    </div>
+    <div class="sb-card" data-tela="1" onclick="goToTela(1)">
+      <div class="sb-num">02</div>
+      <div class="sb-name">Cadastro qualificado</div>
+      <div class="sb-desc">Formulário + qualificação de empréstimo</div>
+    </div>
+    <div class="sb-card" data-tela="2" onclick="goToTela(2)">
+      <div class="sb-num">02.5</div>
+      <div class="sb-name">Criativo</div>
+      <div class="sb-desc">Vídeo institucional Agibank pós-cadastro</div>
+    </div>
+    <div class="sb-card" data-tela="3" onclick="goToTela(3)">
+      <div class="sb-num">03</div>
+      <div class="sb-name">Acesso liberado</div>
+      <div class="sb-desc">Internet liberada, redirect automático</div>
+    </div>
+    <div class="sb-connector">
+      <div class="sb-connector-label">Passo 04 · Integração API</div>
+      <div class="sb-flow">
+        <div class="sb-flow-item">Linktel</div>
+        <div class="sb-flow-item">Trackfy</div>
+        <div class="sb-flow-item">V4 Company</div>
+        <div class="sb-flow-item">WhatsApp Business</div>
+      </div>
+    </div>
+    <div class="sb-card" data-tela="4" onclick="goToTela(4)">
+      <div class="sb-num">05</div>
+      <div class="sb-name">WhatsApp Business</div>
+      <div class="sb-desc">Notificação push Agibank via V4</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATOR LABEL -->
+<div style="padding:28px 48px 0;display:flex;align-items:center;gap:16px;">
+  <div style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;">
+    <span style="display:inline-block;width:12px;height:2px;background:var(--red);"></span>
+    Simulador interativo · Experiência do usuário
+  </div>
+  <div style="flex:1;height:1px;background:var(--border);"></div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);">Estação Barra Funda</div>
+</div>
+
+<!-- SIMULATOR -->
+<section id="simulator">
+  <div class="sim-step-label" id="stepLabel">PASSO 01 · Oferta exclusiva</div>
+  <div class="phone-wrap">
+    <button class="nav-arrow" id="btnPrev" onclick="navigate(-1)" disabled>&#8592;</button>
+    <div class="phone-frame">
+      <div class="phone-screen">
+
+        <!-- TELA 01: Splash AGI Bank -->
+        <div class="tela active" id="tela-0">
+          <div style="background:var(--agi);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;position:relative;">
+            <div style="position:absolute;top:0;left:0;right:0;height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:6px;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.7);">09:14</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.7);">▲▲▲ WiFi</span>
+            </div>
+            <div style="margin-bottom:28px;margin-top:20px;">
+              <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="130" height="81" aria-label="Agibank">
+                <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+              </svg>
+            </div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:#fff;line-height:1.2;margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px;">
+              Seu acesso Wi-Fi é<br>uma cortesia Agibank
+            </div>
+            <div style="font-family:'Barlow',sans-serif;font-size:12px;color:rgba(255,255,255,.75);margin-bottom:36px;line-height:1.5;">
+              Estação Barra Funda · Rede Trackfy
+            </div>
+            <button onclick="goToTela(1)" style="background:#fff;color:var(--agi);border:none;border-radius:4px;padding:14px 32px;font-family:'Barlow',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;max-width:240px;letter-spacing:.3px;">
+              Conectar agora
+            </button>
+            <div style="position:absolute;bottom:20px;display:flex;align-items:center;gap:6px;font-family:'Barlow',sans-serif;font-size:10px;color:rgba(255,255,255,.55);">
+              <span>🔒</span> Acesso seguro e gratuito
+            </div>
+          </div>
+        </div>
+
+        <!-- TELA 02: Formulário qualificado -->
+        <div class="tela" id="tela-1">
+          <div style="background:#fff;min-height:100%;display:flex;flex-direction:column;">
+            <div style="background:var(--agi);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+              <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="72" height="45" aria-label="Agibank">
+                <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+              </svg>
+              <div style="font-family:'Barlow',sans-serif;font-size:10px;color:rgba(255,255,255,.8);margin-left:auto;">Cadastro seguro</div>
+            </div>
+            <div style="padding:20px 16px;flex:1;overflow-y:auto;">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--black);margin-bottom:16px;text-transform:uppercase;letter-spacing:.3px;">Complete seu cadastro</div>
+              <div style="margin-bottom:12px;">
+                <label style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;">Nome completo *</label>
+                <div style="border:1px solid var(--border);border-radius:4px;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--muted);">João da Silva</div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <label style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;">Telefone *</label>
+                <div style="border:1px solid var(--border);border-radius:4px;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;">
+                  <span style="color:var(--dim);font-size:11px;">🇧🇷 +55</span>
+                  <span>(11) 9 8765-4321</span>
+                </div>
+              </div>
+              <div style="margin-bottom:20px;">
+                <label style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;">Data de nascimento *</label>
+                <div style="border:1px solid var(--border);border-radius:4px;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--muted);">15/04/1990</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                <div style="width:10px;height:2px;background:var(--red);flex-shrink:0;"></div>
+                <span style="font-family:'Barlow',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);">Qualificação</span>
+                <div style="flex:1;height:1px;background:var(--border);"></div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <div style="font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px;line-height:1.4;">Tem interesse em contratar um empréstimo?</div>
+                <div style="display:flex;gap:10px;">
+                  <label onclick="toggleFaixa(true)" style="flex:1;border:1px solid var(--border);border-radius:4px;padding:10px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:border-color .15s;" id="radioSim">
+                    <div style="width:16px;height:16px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;" id="dotSim"></div>
+                    <span style="font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;">Sim</span>
+                  </label>
+                  <label onclick="toggleFaixa(false)" style="flex:1;border:1px solid var(--border);border-radius:4px;padding:10px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:border-color .15s;" id="radioNao">
+                    <div style="width:16px;height:16px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;" id="dotNao"></div>
+                    <span style="font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;">Não</span>
+                  </label>
+                </div>
+              </div>
+              <div id="faixaWrap" style="display:none;margin-bottom:16px;">
+                <label style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;">Qual valor você precisa? *</label>
+                <div style="border:1px solid var(--agi);border-radius:4px;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--black);display:flex;justify-content:space-between;align-items:center;">
+                  <span>R$ 1.000 – R$ 5.000</span>
+                  <span style="color:var(--muted);font-size:12px;">▾</span>
+                </div>
+              </div>
+              <div style="margin-bottom:20px;display:flex;flex-direction:column;gap:8px;">
+                <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;">
+                  <div style="width:14px;height:14px;border:2px solid var(--agi);border-radius:3px;flex-shrink:0;margin-top:2px;background:var(--agi);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:9px;font-weight:700;">✓</span></div>
+                  <span style="font-family:'Barlow',sans-serif;font-size:11px;color:var(--dim);line-height:1.4;">Aceito receber contato da Agibank</span>
+                </label>
+                <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;">
+                  <div style="width:14px;height:14px;border:2px solid var(--agi);border-radius:3px;flex-shrink:0;margin-top:2px;background:var(--agi);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:9px;font-weight:700;">✓</span></div>
+                  <span style="font-family:'Barlow',sans-serif;font-size:11px;color:var(--dim);line-height:1.4;">Aceito comunicações comerciais</span>
+                </label>
+                <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;">
+                  <div style="width:14px;height:14px;border:2px solid var(--agi);border-radius:3px;flex-shrink:0;margin-top:2px;background:var(--agi);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:9px;font-weight:700;">✓</span></div>
+                  <span style="font-family:'Barlow',sans-serif;font-size:11px;color:var(--dim);line-height:1.4;">Li e aceito a <span style="color:var(--agi);text-decoration:underline;">Política de Privacidade</span></span>
+                </label>
+              </div>
+              <button onclick="goToTela(2)" style="background:var(--agi);color:#fff;border:none;border-radius:4px;padding:14px;font-family:'Barlow',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;letter-spacing:.3px;">
+                Concluir cadastro
+              </button>
+              <div style="height:16px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TELA 03: Criativo pós-cadastro (vídeo) -->
+        <div class="tela" id="tela-2">
+          <div style="background:#fff;height:100%;display:flex;flex-direction:column;">
+            <div style="background:var(--agi);flex:0 0 62%;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+              <div style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:2px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#fff;letter-spacing:.06em;">AGIBANK · PUBLICIDADE</span>
+              </div>
+              <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.45);padding:3px 8px;border-radius:2px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#fff;">0:15</span>
+              </div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;color:#fff;text-transform:uppercase;text-align:center;line-height:1.1;margin-bottom:20px;letter-spacing:.3px;">
+                Crédito rápido,<br>sem burocracia
+              </div>
+              <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                <div style="width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:18px solid #fff;margin-left:4px;"></div>
+              </div>
+            </div>
+            <div style="flex:1;padding:20px 16px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div style="font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;color:var(--black);margin-bottom:6px;">Conheça as condições exclusivas para você</div>
+                <div style="font-family:'Barlow',sans-serif;font-size:11px;color:var(--muted);line-height:1.5;">Empréstimo pessoal Agibank: até R$ 35.000 com aprovação em minutos, direto no seu celular.</div>
+              </div>
+              <div>
+                <button onclick="goToTela(3)" style="background:transparent;color:var(--agi);border:2px solid var(--agi);border-radius:4px;padding:11px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;letter-spacing:.2px;margin-bottom:8px;">
+                  Simular meu empréstimo →
+                </button>
+                <div style="text-align:center;font-family:'Barlow',sans-serif;font-size:11px;color:var(--muted);">Seu acesso à internet será liberado em instantes.</div>
+                <button onclick="goToTela(3)" style="background:transparent;border:none;color:var(--muted);font-family:'Barlow',sans-serif;font-size:11px;cursor:pointer;width:100%;padding:8px 0;text-decoration:underline;">Pular →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TELA 04: Acesso liberado -->
+        <div class="tela" id="tela-3">
+          <div style="background:#fff;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;">
+            <div style="width:72px;height:72px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path d="M9 18L15 24L27 12" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;color:var(--black);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px;">Acesso liberado!</div>
+            <div style="font-family:'Barlow',sans-serif;font-size:13px;color:var(--dim);line-height:1.6;margin-bottom:32px;max-width:220px;">
+              Obrigado por se conectar com a Agibank. Você será redirecionado automaticamente.
+            </div>
+            <div style="width:100%;max-width:240px;height:6px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:32px;">
+              <div class="progress-bar-inner"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;opacity:.5;">
+              <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="52" height="32" aria-label="Agibank">
+                <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                <path fill="#266BFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                <path fill="#266BFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                <path fill-rule="evenodd" fill="#266BFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+              </svg>
+              <div style="width:1px;height:16px;background:var(--border);"></div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:var(--black);">Trackfy</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TELA 05: Notificação push WhatsApp -->
+        <div class="tela" id="tela-4">
+          <div style="background:linear-gradient(160deg,#2C2C2E 0%,#1C1C1E 100%);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;position:relative;overflow:hidden;">
+            <div style="width:100%;padding:10px 18px 6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#fff;">09:14</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.6);">▲▲▲ WiFi</span>
+            </div>
+            <div style="text-align:center;margin-top:16px;margin-bottom:6px;flex-shrink:0;">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:200;font-size:58px;color:#fff;line-height:1;letter-spacing:-2px;">09:14</div>
+              <div style="font-family:'Barlow',sans-serif;font-size:12px;color:rgba(255,255,255,.6);margin-top:2px;">quinta-feira, 3 de setembro</div>
+            </div>
+            <div style="width:calc(100% - 20px);background:rgba(255,255,255,.94);border-radius:14px;padding:12px 14px;margin-top:20px;backdrop-filter:blur(20px);">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                <div style="width:16px;height:16px;background:#25D366;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                </div>
+                <span style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;color:#1C1C1E;">WhatsApp Business</span>
+                <span style="font-family:'Barlow',sans-serif;font-size:10px;color:#8E8E93;margin-left:auto;">agora</span>
+              </div>
+              <div style="display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:32px;height:32px;border-radius:50%;background:#266BFF;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;">
+                  <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="24" height="15">
+                    <path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/>
+                    <path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/>
+                    <path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/>
+                    <path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/>
+                  </svg>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-family:'Barlow',sans-serif;font-size:12px;font-weight:700;color:#1C1C1E;margin-bottom:3px;">Agibank</div>
+                  <div style="font-family:'Barlow',sans-serif;font-size:12px;color:#3C3C3E;line-height:1.45;">
+                    Olá, João! Seu acesso Wi-Fi na Barra Funda foi uma cortesia Agibank 🏦 Temos uma oferta de crédito especial para você. Toque para conhecer →
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.07em;text-align:center;">
+              ENVIADO VIA WHATSAPP BUSINESS · V4 COMPANY
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <button class="nav-arrow" id="btnNext" onclick="navigate(1)">&#8594;</button>
+  </div>
+  <div class="sim-dots">
+    <div class="sim-dot active" onclick="goToTela(0)"></div>
+    <div class="sim-dot" onclick="goToTela(1)"></div>
+    <div class="sim-dot" onclick="goToTela(2)"></div>
+    <div class="sim-dot" onclick="goToTela(3)"></div>
+    <div class="sim-dot" onclick="goToTela(4)"></div>
+  </div>
+</section>
+
+<script>
+const STEP_LABELS = [
+  'PASSO 01 · Oferta exclusiva',
+  'PASSO 02 · Cadastro qualificado',
+  'PASSO 02.5 · Criativo',
+  'PASSO 03 · Acesso liberado',
+  'PASSO 05 · WhatsApp Business',
+];
+let current = 0;
+const TOTAL = 5;
+
+function goToTela(idx) {
+  document.getElementById('tela-' + current).classList.remove('active');
+  document.querySelectorAll('.sim-dot')[current].classList.remove('active');
+  const prevCard = document.querySelector('.sb-card[data-tela="' + current + '"]');
+  if (prevCard) prevCard.classList.remove('active');
+
+  current = idx;
+
+  document.getElementById('tela-' + current).classList.add('active');
+  document.querySelectorAll('.sim-dot')[current].classList.add('active');
+  const nextCard = document.querySelector('.sb-card[data-tela="' + current + '"]');
+  if (nextCard) nextCard.classList.add('active');
+
+  document.getElementById('stepLabel').textContent = STEP_LABELS[current];
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').disabled = current === TOTAL - 1;
+  document.getElementById('tela-' + current).scrollTop = 0;
+
+  if (current === 3) {
+    clearTimeout(window._autoAdvance);
+    const bar = document.querySelector('.progress-bar-inner');
+    if (bar) {
+      bar.style.animation = 'none';
+      bar.offsetHeight; // force reflow
+      bar.style.animation = '';
+    }
+    window._autoAdvance = setTimeout(() => goToTela(4), 3000);
+  } else {
+    clearTimeout(window._autoAdvance);
+  }
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next >= 0 && next < TOTAL) goToTela(next);
+}
+
+function toggleFaixa(sim) {
+  const faixaWrap = document.getElementById('faixaWrap');
+  const dotSim = document.getElementById('dotSim');
+  const dotNao = document.getElementById('dotNao');
+  const radioSim = document.getElementById('radioSim');
+  const radioNao = document.getElementById('radioNao');
+  const agi = '#266BFF';
+  const border = '#CECCCA';
+
+  if (sim) {
+    faixaWrap.style.display = 'block';
+    dotSim.style.background = agi;
+    dotSim.style.borderColor = agi;
+    dotNao.style.background = '';
+    dotNao.style.borderColor = border;
+    radioSim.style.borderColor = agi;
+    radioNao.style.borderColor = border;
+  } else {
+    faixaWrap.style.display = 'none';
+    dotNao.style.background = agi;
+    dotNao.style.borderColor = agi;
+    dotSim.style.background = '';
+    dotSim.style.borderColor = border;
+    radioNao.style.borderColor = agi;
+    radioSim.style.borderColor = border;
+  }
+}
+</script>
+</body>
+</html>
