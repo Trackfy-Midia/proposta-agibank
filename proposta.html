@@ -1145,37 +1145,6 @@ footer {
       </div>
     </div>
 
-    <div class="calc-panel">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:24px;">Simule o retorno da V4 Company</div>
-      <div class="calc-row calc-row-main">
-        <div class="calc-field">
-          <label>Leads mensais</label>
-          <input type="number" id="calcLeads" value="5000" min="100" step="100" oninput="calcUpdate()">
-        </div>
-        <div class="calc-field highlight">
-          <label>CPL cobrado da Agibank (R$)</label>
-          <input type="number" id="calcCplAgi" value="0" min="0" step="0.5" oninput="calcUpdate()">
-        </div>
-        <div>
-          <button class="calc-btn" onclick="calcUpdate()">Calcular</button>
-        </div>
-      </div>
-      <div class="calc-row calc-row-opt">
-        <div class="calc-field">
-          <label>Conversão em cliente (%)</label>
-          <input type="number" id="calcConv" value="0" min="0" max="100" step="0.5" oninput="calcUpdate()">
-        </div>
-        <div class="calc-field">
-          <label>Ticket médio Agibank (R$)</label>
-          <input type="number" id="calcTicket" value="0" min="0" step="500" oninput="calcUpdate()">
-        </div>
-        <div class="calc-opt-hint">Opcional · ROI da Agibank</div>
-      </div>
-
-      <div class="calc-results" id="calcResults">
-        <!-- preenchido pelo JS -->
-      </div>
-    </div>
   </div>
 </section>
 
