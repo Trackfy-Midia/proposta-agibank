@@ -949,9 +949,16 @@ footer {
                       <div style="flex:1;border:1px solid #266BFF;border-radius:3px;padding:8px;font-size:12px;font-weight:600;color:#266BFF;text-align:center;">Sim</div>
                       <div style="flex:1;border:1px solid #D8D4CE;border-radius:3px;padding:8px;font-size:12px;color:#888;text-align:center;">Não</div>
                     </div>
-                    <div style="border:1px solid #266BFF;border-radius:3px;padding:8px 10px;font-size:12px;color:#111;display:flex;justify-content:space-between;margin-bottom:12px;">
-                      <span>Nos próximos 30 dias</span><span style="color:#888;">▾</span>
+                    <div onclick="pTogglePrazo()" id="pPrazoTrigger" style="border:1px solid #266BFF;border-radius:3px;padding:8px 10px;font-size:12px;color:#111;display:flex;justify-content:space-between;margin-bottom:0;cursor:pointer;user-select:none;">
+                      <span id="pPrazoValor">Nos próximos 30 dias</span><span id="pPrazoArrow" style="color:#888;display:inline-block;transition:transform .15s;">▾</span>
                     </div>
+                    <div id="pPrazoOpcoes" style="display:none;border:1px solid #266BFF;border-top:none;border-radius:0 0 3px 3px;overflow:hidden;margin-bottom:12px;">
+                      <div onclick="pSelecionarPrazo('Nos próximos 30 dias')" style="padding:8px 10px;font-size:12px;cursor:pointer;border-bottom:1px solid #E8E4DE;background:#fff;">Nos próximos 30 dias</div>
+                      <div onclick="pSelecionarPrazo('Nos próximos 60 dias')" style="padding:8px 10px;font-size:12px;cursor:pointer;border-bottom:1px solid #E8E4DE;background:#fff;">Nos próximos 60 dias</div>
+                      <div onclick="pSelecionarPrazo('Nos próximos 6 meses')" style="padding:8px 10px;font-size:12px;cursor:pointer;border-bottom:1px solid #E8E4DE;background:#fff;">Nos próximos 6 meses</div>
+                      <div onclick="pSelecionarPrazo('Ainda não sei')" style="padding:8px 10px;font-size:12px;cursor:pointer;background:#fff;">Ainda não sei</div>
+                    </div>
+                    <div style="margin-bottom:12px;"></div>
                     <button onclick="pGoTo(2)" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:100%;">Concluir cadastro</button>
                   </div>
                 </div>
@@ -1281,6 +1288,20 @@ function calcUpdate() {
 }
 
 calcUpdate();
+
+function pTogglePrazo() {
+  const opcoes = document.getElementById('pPrazoOpcoes');
+  const arrow = document.getElementById('pPrazoArrow');
+  const open = opcoes.style.display === 'block';
+  opcoes.style.display = open ? 'none' : 'block';
+  arrow.style.transform = open ? '' : 'rotate(180deg)';
+}
+
+function pSelecionarPrazo(valor) {
+  document.getElementById('pPrazoValor').textContent = valor;
+  document.getElementById('pPrazoOpcoes').style.display = 'none';
+  document.getElementById('pPrazoArrow').style.transform = '';
+}
 </script>
 </body>
 </html>
