@@ -8,15 +8,32 @@
   const HASH = 'cfa2d3a15562ba502db104053b696312f96079437de76ee87a25a0346b188ff3';
   const ok = sessionStorage.getItem('auth_ok');
   if (ok === HASH) return;
+
+  // Oculta tudo enquanto a senha não é verificada
+  document.write('<style id="__pw">html{visibility:hidden!important}</style>');
+
   const pwd = prompt('Senha de acesso:');
-  if (!pwd) { document.documentElement.innerHTML = ''; return; }
+  if (!pwd) {
+    // Substitui o documento inteiro e para o parser — nada vaza
+    document.open(); document.write(''); document.close();
+    return;
+  }
+
   async function check(p) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(p));
     return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
   }
+
   check(pwd).then(h => {
-    if (h === HASH) { sessionStorage.setItem('auth_ok', HASH); }
-    else { document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center"><p style="color:#666">Senha incorreta.</p></body>'; }
+    if (h === HASH) {
+      sessionStorage.setItem('auth_ok', HASH);
+      const s = document.getElementById('__pw');
+      if (s) s.remove(); else document.documentElement.style.visibility = '';
+    } else {
+      document.open();
+      document.write('<body style="font-family:sans-serif;padding:40px;text-align:center"><p style="color:#666">Senha incorreta.</p></body>');
+      document.close();
+    }
   });
 })();
 </script>
