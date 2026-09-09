@@ -6,30 +6,64 @@
 <script>
 (function(){
   const HASH = 'cfa2d3a15562ba502db104053b696312f96079437de76ee87a25a0346b188ff3';
-  const ok = sessionStorage.getItem('auth_ok');
-  if (ok === HASH) return;
-
-  // Bloqueia renderização imediatamente — nada aparece antes da senha
-  document.documentElement.style.setProperty('visibility', 'hidden', 'important');
-
-  const pwd = prompt('Senha de acesso:');
-  if (!pwd) {
-    location.replace('about:blank');
-    return;
-  }
+  if (sessionStorage.getItem('auth_ok') === HASH) return;
 
   async function check(p) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(p));
     return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
   }
 
-  check(pwd).then(h => {
-    if (h === HASH) {
-      sessionStorage.setItem('auth_ok', HASH);
-      document.documentElement.style.removeProperty('visibility');
-    } else {
-      location.replace('about:blank');
+  document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.createElement('div');
+    overlay.id = 'auth-overlay';
+    overlay.innerHTML = `
+      <div id="auth-box">
+        <div id="auth-logo">🔒</div>
+        <p id="auth-title">Acesso restrito</p>
+        <p id="auth-sub">Insira a senha para visualizar esta proposta.</p>
+        <input id="auth-input" type="password" placeholder="Senha de acesso" autocomplete="current-password" />
+        <button id="auth-btn">Entrar</button>
+        <p id="auth-err"></p>
+      </div>`;
+    Object.assign(overlay.style, {
+      position:'fixed', inset:'0', background:'#0a0a0a',
+      display:'flex', alignItems:'center', justifyContent:'center',
+      zIndex:'99999', fontFamily:'sans-serif'
+    });
+    const box = () => overlay.querySelector('#auth-box');
+    document.body.appendChild(overlay);
+
+    const style = document.createElement('style');
+    style.textContent = `
+      #auth-box { background:#111; border:1px solid #333; border-radius:12px; padding:40px 36px; width:320px; text-align:center; }
+      #auth-logo { font-size:32px; margin-bottom:16px; }
+      #auth-title { color:#fff; font-size:18px; font-weight:600; margin-bottom:6px; }
+      #auth-sub { color:#888; font-size:13px; margin-bottom:24px; }
+      #auth-input { width:100%; padding:10px 14px; border-radius:8px; border:1px solid #333; background:#1a1a1a; color:#fff; font-size:14px; outline:none; margin-bottom:12px; }
+      #auth-input:focus { border-color:#266BFF; }
+      #auth-btn { width:100%; padding:10px; border-radius:8px; background:#266BFF; color:#fff; font-size:14px; font-weight:600; border:none; cursor:pointer; }
+      #auth-btn:hover { background:#1a56dd; }
+      #auth-err { color:#e52420; font-size:12px; margin-top:10px; min-height:18px; }
+    `;
+    document.head.appendChild(style);
+
+    function tryAuth() {
+      const pwd = overlay.querySelector('#auth-input').value;
+      check(pwd).then(h => {
+        if (h === HASH) {
+          sessionStorage.setItem('auth_ok', HASH);
+          overlay.remove();
+        } else {
+          overlay.querySelector('#auth-err').textContent = 'Senha incorreta.';
+          overlay.querySelector('#auth-input').value = '';
+          overlay.querySelector('#auth-input').focus();
+        }
+      });
     }
+
+    overlay.querySelector('#auth-btn').addEventListener('click', tryAuth);
+    overlay.querySelector('#auth-input').addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+    setTimeout(() => overlay.querySelector('#auth-input').focus(), 50);
   });
 })();
 </script>
