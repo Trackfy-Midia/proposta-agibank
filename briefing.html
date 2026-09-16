@@ -364,7 +364,8 @@ textarea:focus, input[type="text"]:focus {
   <div class="toolbar-actions">
     <button class="btn" onclick="exportar()">Exportar TXT</button>
     <button class="btn" onclick="window.print()">Imprimir</button>
-    <button class="btn btn-primary" onclick="salvar()">Salvar</button>
+    <button class="btn" id="btnGerarLink" onclick="gerarLink()">Gerar link</button>
+    <button class="btn btn-primary" id="btnSalvar" onclick="salvar()">Salvar</button>
   </div>
 </div>
 
@@ -700,9 +701,51 @@ function exportar() {
   a.click();
 }
 
-// Carrega dados salvos
-const raw = localStorage.getItem(KEY);
-if (raw) { try { setData(JSON.parse(raw)); markSaved(); } catch(e) {} }
+// ── LINK COMPARTILHÁVEL ──
+function gerarLink() {
+  salvar();
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(getData()))));
+  const url = location.href.split('#')[0] + '#' + encoded;
+  history.replaceState(null, '', url);
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('btnGerarLink');
+    const prev = btn.textContent;
+    btn.textContent = 'Link copiado!';
+    btn.style.cssText += 'background:rgb(22,163,74);color:#fff;border-color:transparent;';
+    setTimeout(() => { btn.textContent = prev; btn.removeAttribute('style'); }, 2500);
+  });
+}
+
+// ── MODO VISUALIZAÇÃO (aberto via link) ──
+function entrarModoVisualizacao() {
+  document.querySelectorAll('textarea, input[type="text"], input[type="radio"]')
+    .forEach(el => { el.disabled = true; el.style.opacity = '.85'; });
+  document.getElementById('btnSalvar').style.display = 'none';
+  document.getElementById('btnGerarLink').style.display = 'none';
+
+  const st = document.getElementById('saveStatus');
+  st.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;"></span> <span>Modo visualização</span>';
+  st.classList.add('saved');
+
+  const eyebrow = document.querySelector('.cover-eyebrow');
+  if (eyebrow) eyebrow.textContent += ' · Visualização';
+}
+
+// ── INICIALIZAÇÃO ──
+const hash = location.hash.slice(1);
+if (hash) {
+  try {
+    setData(JSON.parse(decodeURIComponent(escape(atob(hash)))));
+    entrarModoVisualizacao();
+  } catch(e) {
+    // hash inválido — ignora e carrega localStorage normalmente
+    const raw = localStorage.getItem(KEY);
+    if (raw) { try { setData(JSON.parse(raw)); markSaved(); } catch(e2) {} }
+  }
+} else {
+  const raw = localStorage.getItem(KEY);
+  if (raw) { try { setData(JSON.parse(raw)); markSaved(); } catch(e) {} }
+}
 </script>
 </body>
 </html>
