@@ -125,7 +125,7 @@ main {
 /* ── LAYOUT GRID ── */
 .layout {
   display: grid;
-  grid-template-columns: 1fr 290px;
+  grid-template-columns: 1fr 280px;
   gap: 48px;
   align-items: start;
 }
@@ -139,11 +139,7 @@ main {
   border-radius: 8px;
   padding: 20px 22px;
   position: relative;
-  cursor: pointer;
-  transition: border-color .15s;
 }
-.step-card:hover { border-color: #c8c4be; }
-.step-card.active { border-color: var(--agi); box-shadow: 0 0 0 3px rgba(38,107,255,.08); }
 
 .step-header {
   display: flex;
@@ -299,6 +295,24 @@ main {
   background: var(--border);
   margin: 0 auto;
 }
+.tela-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  background: none;
+  border: 1px solid var(--agi);
+  border-radius: 3px;
+  padding: 4px 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--agi);
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.tela-chip:hover { background: var(--agi); color: #fff; }
 
 /* ── PHONE SIMULATOR ── */
 .sim-wrap {
@@ -318,24 +332,25 @@ main {
   text-transform: uppercase;
   text-align: center;
 }
-.sim-nav {
+.sim-controls {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 .nav-btn {
   background: none;
   border: 1px solid var(--border);
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--dim);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: border-color .15s, color .15s;
+  flex-shrink: 0;
 }
 .nav-btn:hover:not(:disabled) { border-color: var(--dark); color: var(--dark); }
 .nav-btn:disabled { opacity: .3; cursor: default; }
@@ -529,7 +544,7 @@ footer {
     <div class="steps">
 
       <!-- PASSO 01 -->
-      <div class="step-card" onclick="pGoTo(0);setActive(this)">
+      <div class="step-card">
         <div class="step-header">
           <div class="step-num linktel">01</div>
           <div class="step-title-group">
@@ -551,7 +566,7 @@ footer {
       </div>
 
       <!-- PASSO 02 -->
-      <div class="step-card" onclick="pGoTo(0);setActive(this)">
+      <div class="step-card">
         <div class="step-header">
           <div class="step-num trackfy">02</div>
           <div class="step-title-group">
@@ -566,10 +581,11 @@ footer {
           <span class="note-icon">✓</span>
           Nenhuma URL externa nesta tela. Nenhuma whitelist necessária por parte da Linktel.
         </div>
+        <button class="tela-chip" onclick="pGoTo(0)">&#8594; Ver tela 01 no simulador</button>
       </div>
 
       <!-- PASSO 03 -->
-      <div class="step-card" onclick="pGoTo(1);setActive(this)">
+      <div class="step-card">
         <div class="step-header">
           <div class="step-num trackfy">03</div>
           <div class="step-title-group">
@@ -584,10 +600,11 @@ footer {
           <span class="note-icon">✓</span>
           Nenhuma URL externa nesta tela. Nenhuma whitelist necessária.
         </div>
+        <button class="tela-chip" onclick="pGoTo(1)">&#8594; Ver tela 02 no simulador</button>
       </div>
 
       <!-- PASSO 04 -->
-      <div class="step-card" onclick="pGoTo(2);setActive(this)">
+      <div class="step-card">
         <div class="step-header">
           <div class="step-num trackfy">04</div>
           <div class="step-title-group">
@@ -613,10 +630,11 @@ footer {
           <span class="note-icon">✓</span>
           Os CTAs desta tela (WhatsApp e App Store) são acessados <strong>após</strong> a conclusão do cadastro — Wi-Fi já liberado neste momento. Nenhuma whitelist necessária.
         </div>
+        <button class="tela-chip" onclick="pGoTo(2)">&#8594; Ver tela 03 no simulador</button>
       </div>
 
       <!-- PASSO 05 -->
-      <div class="step-card" onclick="pGoTo(3);setActive(this)">
+      <div class="step-card">
         <div class="step-header">
           <div class="step-num linktel">05</div>
           <div class="step-title-group">
@@ -636,10 +654,11 @@ footer {
             <li>Re-autenticação: se o usuário desconectar e reconectar, precisa refazer o cadastro?</li>
           </ul>
         </div>
+        <button class="tela-chip" onclick="pGoTo(3)">&#8594; Ver tela 04 no simulador</button>
       </div>
 
       <!-- PASSO 06 -->
-      <div class="step-card" onclick="pGoTo(3);setActive(this)">
+      <div class="step-card">
         <div class="step-header">
           <div class="step-num v4">06</div>
           <div class="step-title-group">
@@ -661,10 +680,8 @@ footer {
 
     <!-- ── SIMULADOR ── -->
     <div class="sim-wrap">
-      <div class="sim-label-top" id="pStepLabel">PASSO 01 · Oferta exclusiva</div>
-      <div class="sim-nav">
-        <button class="nav-btn" id="pBtnPrev" onclick="pNavigate(-1)" disabled>&#8592;</button>
-        <div class="phone-frame">
+      <div class="sim-label-top" id="pStepLabel">TELA 01 · Splash Agibank</div>
+      <div class="phone-frame">
           <div class="phone-screen">
 
             <!-- TELA 01 · Splash -->
@@ -791,13 +808,15 @@ footer {
 
           </div><!-- /phone-screen -->
         </div><!-- /phone-frame -->
+      <div class="sim-controls">
+        <button class="nav-btn" id="pBtnPrev" onclick="pNavigate(-1)" disabled>&#8592;</button>
+        <div class="sim-dots">
+          <div class="sim-dot active" onclick="pGoTo(0)"></div>
+          <div class="sim-dot" onclick="pGoTo(1)"></div>
+          <div class="sim-dot" onclick="pGoTo(2)"></div>
+          <div class="sim-dot" onclick="pGoTo(3)"></div>
+        </div>
         <button class="nav-btn" id="pBtnNext" onclick="pNavigate(1)">&#8594;</button>
-      </div><!-- /sim-nav -->
-      <div class="sim-dots">
-        <div class="sim-dot active" onclick="pGoTo(0)"></div>
-        <div class="sim-dot" onclick="pGoTo(1)"></div>
-        <div class="sim-dot" onclick="pGoTo(2)"></div>
-        <div class="sim-dot" onclick="pGoTo(3)"></div>
       </div>
     </div><!-- /sim-wrap -->
 
@@ -864,10 +883,10 @@ footer {
 
 <script>
 const P_LABELS = [
-  'PASSO 02 · Splash Agibank',
-  'PASSO 03 · Formulário de qualificação',
-  'PASSO 04 · Criativo pós-cadastro',
-  'PASSO 05 · Acesso liberado',
+  'TELA 01 · Splash Agibank',
+  'TELA 02 · Formulário de qualificação',
+  'TELA 03 · Criativo pós-cadastro',
+  'TELA 04 · Acesso liberado',
 ];
 let pCurrent = 0;
 const P_TOTAL = 4;
@@ -889,10 +908,6 @@ function pNavigate(dir) {
   if (next >= 0 && next < P_TOTAL) pGoTo(next);
 }
 
-function setActive(card) {
-  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
-}
 </script>
 
 </body>
