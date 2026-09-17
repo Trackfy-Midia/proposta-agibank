@@ -1201,63 +1201,83 @@ footer {
                       <div onclick="pSelecionarPerfil('Autonomo')" id="pPerfil-Autonomo" style="border:1px solid #D8D4CE;border-radius:3px;padding:8px;font-size:11px;color:#888;text-align:center;cursor:pointer;">Autônomo</div>
                       <div onclick="pSelecionarPerfil('Outro')" id="pPerfil-Outro" style="border:1px solid #D8D4CE;border-radius:3px;padding:8px;font-size:11px;color:#888;text-align:center;cursor:pointer;">Outro</div>
                     </div>
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;margin-top:2px;">
+                      <div style="width:8px;height:2px;background:#E52420;"></div>
+                      <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#E52420;">Intenção</span>
+                      <div style="flex:1;height:1px;background:#D8D4CE;"></div>
+                    </div>
+                    <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:8px;">Você tem interesse em contratar um empréstimo pessoal?</div>
+                    <div style="display:flex;gap:8px;margin-bottom:14px;">
+                      <div onclick="pSelecionarInteresse('sim')" id="pInteresse-sim" style="flex:1;border:2px solid #266BFF;border-radius:3px;padding:9px;font-size:12px;font-weight:700;color:#266BFF;text-align:center;cursor:pointer;background:#EEF3FF;">Sim</div>
+                      <div onclick="pSelecionarInteresse('nao')" id="pInteresse-nao" style="flex:1;border:1px solid #D8D4CE;border-radius:3px;padding:9px;font-size:12px;color:#888;text-align:center;cursor:pointer;">Não</div>
+                    </div>
                     <button onclick="pConcluirCadastro()" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:100%;">Concluir cadastro</button>
                   </div>
                 </div>
               </div>
 
-              <!-- TELA 03 · Interesse em crédito (CLT) -->
+              <!-- TELA 03 · Criativo pós-cadastro (dinâmico) -->
               <div class="tela" id="ptela-2">
-                <div style="background:#fff;height:100%;display:flex;flex-direction:column;">
-                  <div style="background:#266BFF;padding:8px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
-                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="60" height="37" aria-label="Agibank"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687l-.009.155c.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446C51.392 29.214 51.257 29.049 51.123 28.885c-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
-                    <div style="font-family:'Barlow',sans-serif;font-size:9px;color:rgba(255,255,255,.7);margin-left:auto;">Cadastro seguro</div>
+                <!-- PATH A: CLT + Sim → Crédito pessoal -->
+                <div id="ptela2-pathA" style="height:100%;display:flex;flex-direction:column;">
+                  <div style="background:linear-gradient(160deg,#1450C0,#266BFF);flex:0 0 52%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 14px;text-align:center;">
+                    <div style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:#fff;text-transform:uppercase;line-height:1.2;">Crédito rápido,<br>sem burocracia</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.05em;">CAMPANHA · CRÉDITO PESSOAL AGIBANK</div>
                   </div>
-                  <div style="padding:20px 14px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                      <div style="width:36px;height:36px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M9 18L15 24L27 12" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </div>
-                      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:#111;text-transform:uppercase;">Cadastro realizado!</div>
+                  <div style="flex:1;background:#fff;padding:14px;display:flex;flex-direction:column;justify-content:space-between;">
+                    <div>
+                      <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:#111;text-transform:uppercase;margin-bottom:4px;line-height:1.2;">Empréstimo pessoal<br>pré-aprovado</div>
+                      <div style="font-size:10px;color:#666;line-height:1.6;">Até R$ 35.000, aprovação em minutos. Parcelas que cabem no seu bolso.</div>
                     </div>
                     <div>
-                      <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:12px;line-height:1.5;">Você tem interesse em contratar um empréstimo pessoal?</div>
-                      <div style="display:flex;flex-direction:column;gap:8px;">
-                        <button onclick="pGoTo(3)" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Sim, tenho interesse →</button>
-                        <button onclick="pGoTo(4)" style="background:transparent;color:#888;border:1px solid #D8D4CE;border-radius:3px;padding:11px;font-size:12px;cursor:pointer;width:100%;">Não por agora</button>
-                      </div>
+                      <a href="https://api.whatsapp.com/send?phone=551130042221&text=Ol%C3%A1!%20Meu%20c%C3%B3digo%20%C3%A9%20(CgcAvbDcti)%20e%20quero%20falar%20com%20o%20Agi!&type=phone_number&app_absent=0" target="_blank" style="display:block;background:#25D366;color:#fff;text-decoration:none;border-radius:3px;padding:10px;font-size:11px;font-weight:700;text-align:center;margin-bottom:6px;">Falar com o Agi no WhatsApp →</a>
+                      <button onclick="pGoTo(3)" style="background:transparent;border:none;color:#bbb;font-size:9px;cursor:pointer;width:100%;padding:4px;">Pular →</button>
                     </div>
-                    <div style="font-size:9px;color:#aaa;text-align:center;">Acesso Wi-Fi liberado após esta etapa.</div>
+                  </div>
+                </div>
+                <!-- PATH B: outros → Abrir conta Agibank -->
+                <div id="ptela2-pathB" style="height:100%;display:none;flex-direction:column;">
+                  <div style="background:linear-gradient(160deg,#1450C0,#266BFF);flex:0 0 52%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 14px;text-align:center;">
+                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="68" height="42" aria-label="Agibank" style="margin-bottom:10px;"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687l-.009.155c.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446C51.392 29.214 51.257 29.049 51.123 28.885c-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:#fff;text-transform:uppercase;line-height:1.2;">Sua conta digital<br>sem taxas</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.05em;">CAMPANHA · ABERTURA DE CONTA AGIBANK</div>
+                  </div>
+                  <div style="flex:1;background:#fff;padding:14px;display:flex;flex-direction:column;justify-content:space-between;">
+                    <div>
+                      <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:#111;text-transform:uppercase;margin-bottom:4px;line-height:1.2;">Abra sua conta<br>Agibank grátis</div>
+                      <div style="font-size:10px;color:#666;line-height:1.6;">O app mais completo para quem quer cuidar do dinheiro.</div>
+                    </div>
+                    <div>
+                      <a href="#" target="_blank" style="display:block;background:#266BFF;color:#fff;text-decoration:none;border-radius:3px;padding:10px;font-size:11px;font-weight:700;text-align:center;margin-bottom:6px;">Baixar o App Agibank →</a>
+                      <div style="font-size:9px;color:#888;background:#F8F7F5;border-radius:3px;padding:5px 8px;text-align:center;line-height:1.5;margin-bottom:4px;">Você receberá uma mensagem do Agibank<br>no WhatsApp em instantes.</div>
+                      <button onclick="pGoTo(3)" style="background:transparent;border:none;color:#bbb;font-size:9px;cursor:pointer;width:100%;padding:4px;">Pular →</button>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <!-- TELA 04 · CTA WhatsApp (CLT + Sim) -->
+              <!-- TELA 04 · Acesso liberado -->
               <div class="tela" id="ptela-3">
-                <div style="background:#fff;height:100%;display:flex;flex-direction:column;">
-                  <div style="background:#075E54;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
-                    <div style="width:34px;height:34px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;">
-                      <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="20" height="12"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687l-.009.155c.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446C51.392 29.214 51.257 29.049 51.123 28.885c-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
-                    </div>
-                    <div>
-                      <div style="font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;color:#fff;">Agibank Crédito</div>
-                      <div style="font-size:9px;color:rgba(255,255,255,.6);">online agora</div>
-                    </div>
-                    <div style="margin-left:auto;font-size:9px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;letter-spacing:.05em;">WPP BUSINESS</div>
+                <div style="background:#fff;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;text-align:center;gap:14px;">
+                  <div style="width:56px;height:56px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;">
+                    <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><path d="M9 18L15 24L27 12" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </div>
-                  <div style="flex:1;background:#ECE5DD;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;">
-                    <div style="align-self:flex-start;max-width:80%;background:#fff;border-radius:0 8px 8px 8px;padding:8px 10px;box-shadow:0 1px 2px rgba(0,0,0,.1);">
-                      <div style="font-size:11px;color:#111;line-height:1.5;">Olá, João! Somos do <strong>Agibank</strong>. Você demonstrou interesse em crédito pessoal — temos uma oferta especial pré-aprovada para você.</div>
-                      <div style="font-size:8px;color:#999;text-align:right;margin-top:4px;">09:14 ✓✓</div>
-                    </div>
-                    <div style="align-self:flex-start;max-width:80%;background:#fff;border-radius:0 8px 8px 8px;padding:8px 10px;box-shadow:0 1px 2px rgba(0,0,0,.1);">
-                      <div style="font-size:11px;color:#111;line-height:1.5;">Empréstimo pessoal de até <strong>R$ 35.000</strong>, aprovação em minutos. Vamos conversar?</div>
-                      <div style="font-size:8px;color:#999;text-align:right;margin-top:4px;">09:14 ✓✓</div>
-                    </div>
+                  <div>
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#111;text-transform:uppercase;margin-bottom:6px;letter-spacing:.02em;">Acesso liberado!</div>
+                    <div id="ptela3-msgA" style="font-size:11px;color:#555;line-height:1.7;">Você será redirecionado para<br>o WhatsApp Agibank.</div>
+                    <div id="ptela3-msgB" style="display:none;font-size:11px;color:#555;line-height:1.7;">Seu Wi-Fi está ativo.<br>Aproveite o acesso gratuito.</div>
                   </div>
-                  <div style="background:#fff;padding:10px 14px;border-top:1px solid #E8E4DE;">
-                    <button style="background:#25D366;color:#fff;border:none;border-radius:3px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Responder no WhatsApp →</button>
-                    <div style="text-align:center;font-size:9px;color:#aaa;margin-top:6px;">Acesso Wi-Fi liberado em instantes.</div>
+                  <div id="ptela3-apiNote" style="display:none;background:#EEF3FF;border-radius:6px;padding:10px 14px;border:1px solid #C9D9FF;width:100%;">
+                    <div style="font-size:8px;font-weight:700;color:#266BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;">Via API · WPP Ativo</div>
+                    <div style="font-size:10px;color:#444;line-height:1.5;">Uma mensagem do Agibank chegará<br>no seu WhatsApp em instantes.</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:6px;opacity:.4;">
+                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="36" height="22"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#266BFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill-rule="evenodd" fill="#266BFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687l-.009.155c.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446C51.392 29.214 51.257 29.049 51.123 28.885c-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
+                    <div style="width:1px;height:16px;background:#ccc;"></div>
+                    <div style="font-size:9px;color:#aaa;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em;">TRACKFY</div>
                   </div>
                 </div>
               </div>
@@ -1308,7 +1328,6 @@ footer {
           <div class="sim-dot" onclick="pGoTo(1)"></div>
           <div class="sim-dot" onclick="pGoTo(2)"></div>
           <div class="sim-dot" onclick="pGoTo(3)"></div>
-          <div class="sim-dot" onclick="pGoTo(4)"></div>
         </div>
       </div>
     </div>
@@ -1429,14 +1448,14 @@ footer {
 /* PHONE SIMULATOR */
 const P_LABELS = [
   'PASSO 01 · Oferta exclusiva',
-  'PASSO 02 · Cadastro + Perfil',
-  'PASSO 03 · Interesse em crédito (CLT)',
-  'PASSO 04A · CTA WhatsApp (CLT + Sim)',
-  'PASSO 04B · CTA App Agi (todos os outros)',
+  'PASSO 02 · Cadastro + Qualificação',
+  'PASSO 03 · Criativo pós-cadastro',
+  'PASSO 04 · Acesso liberado',
 ];
 let pCurrent = 0;
-const P_TOTAL = 5;
+const P_TOTAL = 4;
 let pSelectedPerfil = 'CLT';
+let pSelectedInteresse = 'sim';
 
 function pGoTo(idx) {
   document.getElementById('ptela-' + pCurrent).classList.remove('active');
@@ -1474,12 +1493,31 @@ function pSelecionarPerfil(perfil) {
   });
 }
 
-function pConcluirCadastro() {
-  if (pSelectedPerfil === 'CLT') {
-    pGoTo(2); // vai para pergunta de crédito
+function pSelecionarInteresse(val) {
+  pSelectedInteresse = val;
+  const sim = document.getElementById('pInteresse-sim');
+  const nao = document.getElementById('pInteresse-nao');
+  if (val === 'sim') {
+    sim.style.border = '2px solid #266BFF'; sim.style.color = '#266BFF';
+    sim.style.fontWeight = '700'; sim.style.background = '#EEF3FF';
+    nao.style.border = '1px solid #D8D4CE'; nao.style.color = '#888';
+    nao.style.fontWeight = '400'; nao.style.background = '';
   } else {
-    pGoTo(4); // vai direto para App Agi
+    nao.style.border = '2px solid #266BFF'; nao.style.color = '#266BFF';
+    nao.style.fontWeight = '700'; nao.style.background = '#EEF3FF';
+    sim.style.border = '1px solid #D8D4CE'; sim.style.color = '#888';
+    sim.style.fontWeight = '400'; sim.style.background = '';
   }
+}
+
+function pConcluirCadastro() {
+  const pathA = (pSelectedPerfil === 'CLT' && pSelectedInteresse === 'sim');
+  document.getElementById('ptela2-pathA').style.display = pathA ? 'flex' : 'none';
+  document.getElementById('ptela2-pathB').style.display = pathA ? 'none' : 'flex';
+  document.getElementById('ptela3-msgA').style.display = pathA ? '' : 'none';
+  document.getElementById('ptela3-msgB').style.display = pathA ? 'none' : '';
+  document.getElementById('ptela3-apiNote').style.display = pathA ? 'none' : '';
+  pGoTo(2);
 }
 
 /* CALCULATOR */
