@@ -1175,48 +1175,81 @@ footer {
                     </svg>
                     <div style="font-family:'Barlow',sans-serif;font-size:9px;color:rgba(255,255,255,.7);margin-left:auto;">Cadastro seguro</div>
                   </div>
-                  <div style="padding:16px 14px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
-                    <div>
-                      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#111;margin-bottom:14px;text-transform:uppercase;">Complete seu cadastro</div>
-                      <div style="margin-bottom:10px;">
-                        <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">Nome completo *</div>
-                        <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;">João da Silva</div>
+                  <div style="padding:16px 14px;flex:1;overflow-y:auto;">
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#111;margin-bottom:14px;text-transform:uppercase;">Complete seu cadastro</div>
+                    <div style="margin-bottom:10px;">
+                      <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">Nome completo *</div>
+                      <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;">João da Silva</div>
+                    </div>
+                    <div style="margin-bottom:14px;">
+                      <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">WhatsApp (com DDD) *</div>
+                      <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;display:flex;gap:6px;">(11) 9 8765-4321</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                      <div style="width:8px;height:2px;background:#E52420;"></div>
+                      <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#E52420;">Perfil</span>
+                      <div style="flex:1;height:1px;background:#D8D4CE;"></div>
+                    </div>
+                    <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:8px;">Qual é o seu vínculo empregatício?</div>
+                    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+                      <div onclick="pSelecionarPerfil('ServidorPublico')" id="pPerfil-ServidorPublico" style="border:1px solid #D8D4CE;border-radius:3px;padding:9px 10px;font-size:11px;color:#888;cursor:pointer;">Servidor público</div>
+                      <div onclick="pSelecionarPerfil('Aposentado')" id="pPerfil-Aposentado" style="border:1px solid #D8D4CE;border-radius:3px;padding:9px 10px;font-size:11px;color:#888;cursor:pointer;">Aposentado INSS</div>
+                      <div onclick="pSelecionarPerfil('CLT')" id="pPerfil-CLT" style="border:2px solid #266BFF;border-radius:3px;padding:9px 10px;font-size:11px;font-weight:700;color:#266BFF;cursor:pointer;background:#EEF3FF;">Funcionário CLT</div>
+                      <div onclick="pSelecionarPerfil('NaoEnquadro')" id="pPerfil-NaoEnquadro" style="border:1px solid #D8D4CE;border-radius:3px;padding:9px 10px;font-size:11px;color:#888;cursor:pointer;">Não me enquadro</div>
+                    </div>
+                    <div id="pObjetivoSection" style="display:flex;flex-direction:column;">
+                      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                        <div style="width:8px;height:2px;background:#E52420;"></div>
+                        <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#E52420;">Objetivo</span>
+                        <div style="flex:1;height:1px;background:#D8D4CE;"></div>
                       </div>
-                      <div style="margin-bottom:20px;">
-                        <div style="font-size:10px;font-weight:600;color:#66665F;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em;">WhatsApp (com DDD) *</div>
-                        <div style="border:1px solid #D8D4CE;border-radius:3px;padding:8px 10px;font-size:12px;color:#888;display:flex;gap:6px;">(11) 9 8765-4321</div>
+                      <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:8px;">Para qual finalidade você usaria o crédito?</div>
+                      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+                        <div onclick="pSelecionarObjetivo('Dividas')" id="pObj-Dividas" style="border:2px solid #266BFF;border-radius:3px;padding:9px 10px;font-size:11px;font-weight:700;color:#266BFF;cursor:pointer;background:#EEF3FF;">Quitar dívidas</div>
+                        <div onclick="pSelecionarObjetivo('Reforma')" id="pObj-Reforma" style="border:1px solid #D8D4CE;border-radius:3px;padding:9px 10px;font-size:11px;color:#888;cursor:pointer;">Reformar o lar</div>
+                        <div onclick="pSelecionarObjetivo('Sonho')" id="pObj-Sonho" style="border:1px solid #D8D4CE;border-radius:3px;padding:9px 10px;font-size:11px;color:#888;cursor:pointer;">Realizar um sonho</div>
+                        <div onclick="pSelecionarObjetivo('SemInteresse')" id="pObj-SemInteresse" style="border:1px solid #D8D4CE;border-radius:3px;padding:9px 10px;font-size:11px;color:#888;cursor:pointer;">Não tenho interesse em empréstimo</div>
                       </div>
                     </div>
-                    <button onclick="pGoTo(2)" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:100%;">Próximo →</button>
+                    <button onclick="pConcluirCadastro()" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-bottom:14px;">Concluir cadastro</button>
                   </div>
                 </div>
               </div>
 
-              <!-- TELA 03 · Perfil -->
+              <!-- TELA 03 · Resultado -->
               <div class="tela" id="ptela-2">
-                <div style="background:#fff;min-height:100%;display:flex;flex-direction:column;">
-                  <div style="background:#266BFF;padding:8px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
-                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="60" height="37" aria-label="Agibank"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/><path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
-                    <div style="font-family:'Barlow',sans-serif;font-size:9px;color:rgba(255,255,255,.7);margin-left:auto;">Etapa 2 de 3</div>
+                <!-- PATH A: CLT + interesse → WhatsApp Agibank -->
+                <div id="ptela2-pathA" style="background:#fff;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;text-align:center;gap:14px;">
+                  <div style="width:56px;height:56px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;">
+                    <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><path d="M9 18L15 24L27 12" stroke="#2E7D32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </div>
-                  <div style="padding:16px 14px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
-                    <div>
-                      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#111;margin-bottom:6px;text-transform:uppercase;">Qual é o seu perfil?</div>
-                      <div style="font-size:11px;color:#666;margin-bottom:16px;">Selecione a opção que melhor representa você.</div>
-                      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
-                        <div onclick="pSelecionarPerfil('ServidorPublico')" id="pPerfil-ServidorPublico" style="border:1px solid #D8D4CE;border-radius:3px;padding:10px 12px;font-size:12px;color:#888;cursor:pointer;">Servidor público</div>
-                        <div onclick="pSelecionarPerfil('Aposentado')" id="pPerfil-Aposentado" style="border:1px solid #D8D4CE;border-radius:3px;padding:10px 12px;font-size:12px;color:#888;cursor:pointer;">Aposentado INSS</div>
-                        <div onclick="pSelecionarPerfil('CLT')" id="pPerfil-CLT" style="border:2px solid #266BFF;border-radius:3px;padding:10px 12px;font-size:12px;font-weight:700;color:#266BFF;cursor:pointer;background:#EEF3FF;">Funcionário CLT</div>
-                        <div onclick="pSelecionarPerfil('NaoEnquadro')" id="pPerfil-NaoEnquadro" style="border:1px solid #D8D4CE;border-radius:3px;padding:10px 12px;font-size:12px;color:#888;cursor:pointer;">Não me enquadro</div>
-                      </div>
-                    </div>
-                    <button onclick="pAvancarPerfil()" style="background:#266BFF;color:#fff;border:none;border-radius:3px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:100%;">Próximo →</button>
+                  <div>
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#111;text-transform:uppercase;margin-bottom:6px;letter-spacing:.02em;">Internet liberada!</div>
+                    <div style="font-size:11px;color:#555;line-height:1.7;">Você receberá uma oferta de crédito<br>do Agibank no seu WhatsApp.</div>
                   </div>
+                  <div style="background:#EEF3FF;border-radius:6px;padding:10px 14px;border:1px solid #C9D9FF;width:100%;">
+                    <div style="font-size:8px;font-weight:700;color:#266BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;">Via API · WPP Ativo</div>
+                    <div style="font-size:10px;color:#444;line-height:1.5;">Uma mensagem do Agibank chegará<br>no seu WhatsApp em instantes.</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:6px;opacity:.4;">
+                    <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="36" height="22"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#266BFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill="#266BFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/><path fill-rule="evenodd" fill="#266BFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687l-.009.155c.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446C51.392 29.214 51.257 29.049 51.123 28.885c-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
+                    <div style="width:1px;height:16px;background:#ccc;"></div>
+                    <div style="font-size:9px;color:#aaa;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em;">TRACKFY</div>
+                  </div>
+                </div>
+                <!-- PATH B: não-CLT / CLT sem interesse → download app -->
+                <div id="ptela2-pathB" style="display:none;background:#266BFF;height:100%;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;position:relative;">
+                  <svg viewBox="0 0 167 104" xmlns="http://www.w3.org/2000/svg" width="90" height="56" aria-label="Agibank" style="margin-bottom:20px;"><path d="M148.603 8.226c.038 4.744-3.971 8.181-8.122 8.151-3.773-.027-8.007-3.027-8.013-8.178-.004-4.756 3.661-8.203 8.088-8.196 4.734.009 8.142 3.94 8.047 8.226z" fill="#2FC750"/><path fill="#FFFFFF" d="M134.516 50.663V23.301c0-1.212-.075-1.062 1.028-1.064 3.465-.004 6.928 0 10.393.004 1.14.002 1.045-.125 1.045 1.052v41.239c0 4.43 0 8.857.001 13.287 0 .262-.004.524-.004.787 0 .24-.122.357-.353.363-.195.006-.39.006-.584.006-3.53 0-7.058-.002-10.588-.004-.936 0-.841.092-.841-1.028v-28.12z"/><path fill="#FFFFFF" d="M125.591 24.082c0-.394.006-.787-.002-1.181-.012-.704-.016-.722-.684-.722-3.692-.007-7.383-.007-11.075-.001-.72 0-.726.014-.735.766-.018 2.034-.028 4.068-.048 6.102-.002.242.05.502-.071.723-.093-.018-.134-.014-.148-.03-.249-.301-.496-.606-.745-.907-2.511-3.043-5.622-5.194-9.334-6.463-3.357-1.148-6.816-1.472-10.336-1.388-2.807.068-5.545.513-8.16 1.553-6.75 2.685-11.686 7.474-15.005 13.899-3.645 7.055-4.072 14.569-2.175 22.2 1.765 7.101 5.974 12.571 11.686 16.904 2.678 2.032 5.688 3.361 8.977 4.034 3.566.73 7.142.742 10.715.127 5.503-.946 10.551-2.876 14.601-7.287.022.369.05.558.042.747-.058 1.278-.095 2.555-.293 3.822-.955 6.081-4.076 10.461-9.788 12.797-4.349 1.78-8.814 1.965-13.337.85-4.222-1.041-7.911-3.028-10.716-6.496-.346-.429-.372-.423-.88.09-2.613 2.641-5.222 5.289-7.833 7.934-.091.092-.18.188-.273.28-.168.166-.176.334-.02.512.194.222.382.445.58.663 2.609 2.846 5.659 5.092 9.106 6.774 8.094 3.95 16.53 4.508 25.183 2.435 4.723-1.132 8.889-3.366 12.325-6.902 3.162-3.253 5.198-7.162 6.515-11.485 1.447-4.745 1.917-9.632 1.923-14.57.022-15.26.01-30.52.01-45.779zm-12.267 26.707c-.073 6.027-2.404 11.053-7.365 14.732-2.435 1.807-5.197 2.787-8.183 3.076-3.675.355-7.259-.031-10.556-1.85-5.414-2.988-8.503-7.608-9.223-13.83-.397-3.418-.114-6.784 1.285-9.93 2.777-6.24 7.533-9.851 14.313-10.573 3.902-.417 7.648.165 11.038 2.224 5.147 3.128 8.021 7.767 8.582 13.846.042.458.081.915.107 1.374.014.265.002.528.002.932z"/><path fill-rule="evenodd" fill="#FFFFFF" d="M32.518 80.044c5.803-.808 11.106-2.785 15.247-7.356.151.263.135.484.12.687-.004.052-.008.104-.009.155.006.905.006 1.81.006 2.716-.001.604 0 1.207.001 1.811.001.573-.023.831.093.946.118.116.383.084.969.085 3.4.004 6.798.008 10.198-.002.679-.001.979.052 1.11-.073.129-.122.095-.416.095-1.102v-41.872c0-4.534-.001-9.067 0-13.6 0-.052-.002-.104-.004-.156-.003-.112-.006-.224.007-.334.049-.443-.077-.64-.575-.638-3.757.02-7.513.02-11.268 0-.532-.004-.64.203-.636.689.02 2.164.012 4.33.002 6.495 0 .045.008.093.016.142.025.165.053.345-.188.446-.136-.164-.271-.329-.405-.493-.258-.315-.516-.63-.782-.937C44.073 25.883 41.134 23.785 37.628 22.569c-5.519-1.916-11.137-2.117-16.705-.419C12.315 24.778 6.454 30.614 3.001 38.908.542 44.816.2 51.032 1.479 57.26c1.911 9.313 7.206 16.138 15.528 20.469 4.875 2.537 10.141 3.065 15.511 2.317zm-12.818-44.139c-4.829 3.712-7.072 8.72-7.064 14.953.011.213.019.433.027.658.03.803.062 1.672.22 2.536 1.321 7.205 5.417 11.948 12.302 14.171 1.892.611 3.873.736 5.856.664 6.62-.244 11.599-3.289 14.896-9.088 1.813-3.193 2.321-6.712 2.131-10.346-.279-5.324-2.402-9.727-6.488-13.121-2.906-2.414-6.28-3.597-10-3.802-4.331-.24-8.372.677-11.884 3.378z"/></svg>
+                  <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:#fff;text-transform:uppercase;line-height:1.1;margin-bottom:8px;">Abra sua conta<br>gratuita</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:28px;line-height:1.5;">O app mais completo para quem<br>quer cuidar do dinheiro.</div>
+                  <button style="background:#fff;color:#266BFF;border:none;border-radius:4px;padding:13px 28px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;max-width:200px;margin-bottom:8px;">Baixar o App Agi →</button>
+                  <div style="font-size:10px;color:rgba(255,255,255,.55);">Internet liberada em instantes.</div>
+                  <div style="position:absolute;bottom:14px;font-family:'IBM Plex Mono',monospace;font-size:7px;color:rgba(255,255,255,.25);letter-spacing:.08em;">DEEP LINK TRACKEADO · V4 COMPANY</div>
                 </div>
               </div>
 
-              <!-- TELA 04 · Qualificação (CLT) / Download (outros) -->
-              <div class="tela" id="ptela-3">
+              <!-- TELA 04 [removida — fluxo unificado na tela 02] -->
+              <div class="tela" id="ptela-3" style="display:none!important;">
                 <!-- PATH A: CLT → objetivos de empréstimo -->
                 <div id="ptela3-pathA" style="background:#fff;min-height:100%;display:flex;flex-direction:column;">
                   <div style="background:#266BFF;padding:8px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
@@ -1247,8 +1280,8 @@ footer {
                 </div>
               </div>
 
-              <!-- TELA 05 · Resultado -->
-              <div class="tela" id="ptela-4">
+              <!-- TELA 05 [removida — fluxo unificado na tela 02] -->
+              <div class="tela" id="ptela-4" style="display:none!important;">
                 <!-- PATH A: CLT + interesse → WhatsApp Agibank -->
                 <div id="ptela4-pathA" style="background:#fff;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;text-align:center;gap:14px;">
                   <div style="width:56px;height:56px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;">
@@ -1287,8 +1320,6 @@ footer {
           <div class="sim-dot active" onclick="pGoTo(0)"></div>
           <div class="sim-dot" onclick="pGoTo(1)"></div>
           <div class="sim-dot" onclick="pGoTo(2)"></div>
-          <div class="sim-dot" onclick="pGoTo(3)"></div>
-          <div class="sim-dot" onclick="pGoTo(4)"></div>
         </div>
       </div>
     </div>
@@ -1409,13 +1440,11 @@ footer {
 /* PHONE SIMULATOR */
 const P_LABELS = [
   'PASSO 01 · Oferta exclusiva',
-  'PASSO 02 · Cadastro',
-  'PASSO 03 · Perfil',
-  'PASSO 04 · Qualificação',
-  'PASSO 05 · Acesso liberado',
+  'PASSO 02 · Cadastro + Qualificação',
+  'PASSO 03 · Acesso liberado',
 ];
 let pCurrent = 0;
-const P_TOTAL = 5;
+const P_TOTAL = 3;
 let pSelectedPerfil = 'CLT';
 let pSelectedObjetivo = 'Dividas';
 
@@ -1453,13 +1482,8 @@ function pSelecionarPerfil(perfil) {
       el.style.background = '';
     }
   });
-}
-
-function pAvancarPerfil() {
-  const isCLT = pSelectedPerfil === 'CLT';
-  document.getElementById('ptela3-pathA').style.display = isCLT ? 'flex' : 'none';
-  document.getElementById('ptela3-pathB').style.display = isCLT ? 'none' : 'flex';
-  pGoTo(3);
+  document.getElementById('pObjetivoSection').style.display =
+    perfil === 'CLT' ? 'flex' : 'none';
 }
 
 function pSelecionarObjetivo(obj) {
@@ -1481,11 +1505,12 @@ function pSelecionarObjetivo(obj) {
   });
 }
 
-function pConcluirQualificacao() {
-  const temInteresse = pSelectedObjetivo !== 'SemInteresse';
-  document.getElementById('ptela4-pathA').style.display = temInteresse ? 'flex' : 'none';
-  document.getElementById('ptela4-pathB').style.display = temInteresse ? 'none' : 'flex';
-  pGoTo(4);
+function pConcluirCadastro() {
+  const isCLT = pSelectedPerfil === 'CLT';
+  const temInteresse = isCLT && pSelectedObjetivo !== 'SemInteresse';
+  document.getElementById('ptela2-pathA').style.display = temInteresse ? 'flex' : 'none';
+  document.getElementById('ptela2-pathB').style.display = temInteresse ? 'none' : 'flex';
+  pGoTo(2);
 }
 
 /* CALCULATOR */
