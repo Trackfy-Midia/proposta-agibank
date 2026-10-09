@@ -449,8 +449,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); display: flex;
   background: white; border-left: 1px solid var(--border);
   overflow-y: auto; padding: 20px;
 }
-.i-pane { display: none; }
-.i-pane.active { display: block; }
 .i-title { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; color: #C2410C; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 12px; }
 .i-list { list-style: none; margin-bottom: 16px; }
 .i-list li { font-size: 12px; color: var(--text); line-height: 1.55; padding: 5px 0 5px 14px; position: relative; border-bottom: 1px solid #F9FAFB; }
@@ -770,98 +768,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); display: flex;
       </div><!-- device-screen -->
     </div><!-- device -->
   </div><!-- center -->
-
-  <!-- INFO PANEL -->
-  <div class="info">
-
-    <div class="i-pane active" id="i1">
-      <div class="i-title">01 · Login (splash) — hoje</div>
-      <ul class="i-list">
-        <li>Logo Agibank centralizado, com margem negativa grande</li>
-        <li>Card com overlay marrom semi-transparente sobre o azul</li>
-        <li>Label "Conectar com:" antes do botão</li>
-        <li>Botão com ícone de edição (<i class="fa fa-edit" style="font-size:10px"></i>) + "Conectar grátis →"</li>
-        <li>Toggles de aceite com fundo preto semi-transparente</li>
-        <li>Footer com logo Linktel ("uma solução linktel")</li>
-      </ul>
-      <div class="issue-box">
-        <div class="issue-t">Principais problemas visuais</div>
-        <div class="issue-p">
-          1. Card marrom quebra a identidade Agibank<br>
-          2. Ícone de edição não faz sentido no botão<br>
-          3. Label "Conectar com:" implica múltiplas opções<br>
-          4. Logo Linktel conflita com a marca Agibank<br>
-          5. Layout não respira — muito conteúdo empilhado
-        </div>
-      </div>
-    </div>
-
-    <div class="i-pane" id="i2">
-      <div class="i-title">02 · Dados (formulário) — hoje</div>
-      <ul class="i-list">
-        <li>Header azul com logo pequena + título</li>
-        <li>Saudação genérica: "Olá, para finalizar..."</li>
-        <li>Campo Nome com label "Nome:" (curto)</li>
-        <li>Campo Telefone com seletor de DDI (dropdown de países)</li>
-        <li>2 campos customizados como dropdowns</li>
-        <li>Botão "Salvar e Entrar" + "Acessar com outra conta"</li>
-      </ul>
-      <div class="issue-box">
-        <div class="issue-t">Principais problemas visuais</div>
-        <div class="issue-p">
-          1. Seletor DDI de países é desnecessário e confuso<br>
-          2. Labels curtos ("Nome:", "Telefone:") pouco informativos<br>
-          3. "Salvar e Entrar" → linguagem técnica<br>
-          4. "Acessar com outra conta" → não faz sentido no contexto<br>
-          5. Sem barra de progresso ou contexto de etapa
-        </div>
-      </div>
-    </div>
-
-    <div class="i-pane" id="i3">
-      <div class="i-title">03 · Publicidade (campanha) — hoje</div>
-      <ul class="i-list">
-        <li>Dois botões "Conectar" (topo e base da tela)</li>
-        <li>Card de campanha com título, imagem e descrição</li>
-        <li>Imagem de campanha com fallback genérico</li>
-        <li>Botão redondo com ícone de link externo</li>
-        <li>Sem badge "Internet Liberada"</li>
-      </ul>
-      <div class="issue-box">
-        <div class="issue-t">Principais problemas visuais</div>
-        <div class="issue-p">
-          1. "TÍTULO DA CAMPANHA" e "DESCRIÇÃO" em caixa alta parecem placeholder<br>
-          2. Dois botões "Conectar" duplicados confundem<br>
-          3. Sem indicação de que a internet já está liberada<br>
-          4. Sem CTA específico para Agibank (WhatsApp, por ex.)
-        </div>
-      </div>
-    </div>
-
-    <div class="i-pane" id="i4">
-      <div class="i-title">04 · Após conexão — hoje</div>
-      <ul class="i-list">
-        <li>Mensagem genérica de autenticação concluída</li>
-        <li>Seção "Curta nossa página" (Facebook)</li>
-        <li>Botão de Checkin (Facebook)</li>
-        <li>"Ir para Timeline" como call-to-action</li>
-      </ul>
-      <div class="issue-box">
-        <div class="issue-t">Principais problemas visuais</div>
-        <div class="issue-p">
-          1. Tela toda voltada para Facebook — irrelevante para Agibank<br>
-          2. Sem menção ao Agibank após a conexão<br>
-          3. Sem nome do passageiro, sem personalização<br>
-          4. Sem plano B para contato ou código de acesso
-        </div>
-      </div>
-      <div class="ok-box">
-        <div class="ok-t">✓ O que funciona</div>
-        <div class="ok-p">A autenticação em si funciona: o passageiro conecta e recebe internet. A jornada técnica está operando.</div>
-      </div>
-    </div>
-
-  </div>
+</div>
 
 </div>
 
@@ -871,9 +778,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); display: flex;
   function goTo(n) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.i-pane').forEach(s => s.classList.remove('active'));
     document.getElementById('s' + n).classList.add('active');
-    document.getElementById('i' + n).classList.add('active');
     document.querySelectorAll('.nav-item')[n - 1].classList.add('active');
     if (n === 2) {
       selCsel1 = ''; selCsel2 = '';
