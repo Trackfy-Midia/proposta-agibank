@@ -486,20 +486,6 @@ input.form-control, select.form-control { font-size: 16px; zoom: 0.875; }
 .custom-option:hover { background: #f0f7ff; }
 .custom-option.selected { color: #0064f5; font-weight: 600; }
 
-/* ─── MOBILE ──────────────────────────────────────────── */
-@media (max-width: 640px) {
-  html, body { height: auto; overflow-x: hidden; overflow-y: auto; }
-  .header { height: auto; padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
-  .h-sub, .h-div { display: none; }
-  .agi-wm { font-size: 17px; }
-  .h-tag { font-size: 10px; padding: 3px 10px; }
-  .layout { display: block; overflow: visible; flex: none; }
-  .sidebar, .info { display: none; }
-  .center { padding: 20px 16px 16px; overflow: visible; display: block; }
-  .device { width: min(290px, calc(100vw - 32px)); margin: 0 auto; background: #1a1a1a; border-radius: 40px; padding: 12px; }
-  .device-screen { border-radius: 30px; height: 590px; }
-}
-
 /* ─── OPTION LIST (radio visual) ─────────────────────── */
 .option-list { display: flex; flex-direction: column; gap: 6px; }
 .option-row {
@@ -519,6 +505,18 @@ input.form-control, select.form-control { font-size: 16px; zoom: 0.875; }
 }
 .option-row.selected .option-radio { border-color: #0064f5; background: #0064f5; }
 .option-row.selected .option-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; display: block; }
+
+/* ─── MOBILE ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  html, body { height: auto; overflow-x: hidden; overflow-y: auto; }
+  .header { height: auto; padding: 10px 16px; flex-wrap: wrap; gap: 6px; }
+  .h-sub, .h-div { display: none; }
+  .layout { display: block; overflow: visible; flex: none; }
+  .sidebar, .info { display: none; }
+  .center { padding: 20px 16px 16px; overflow: visible; display: block; }
+  .device { width: min(290px, calc(100vw - 32px)); margin: 0 auto; background: #1a1a1a; border-radius: 40px; padding: 12px; }
+  .device-screen { border-radius: 30px; height: 590px; }
+}
 </style>
 </head>
 <body>
