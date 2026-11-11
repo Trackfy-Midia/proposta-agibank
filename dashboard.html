@@ -6,6 +6,7 @@
 <title>Agibank x Trackfy - Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 :root {
   --agi:    #266BFF;
   --agi-l:  #93B4FF;
@@ -17,44 +18,97 @@
   --bg:     #F9FAFB;
   --white:  #FFFFFF;
   --green:  #16A34A;
+  --amber:  #D97706;
   --r:      8px;
   --font:   'Inter', system-ui, -apple-system, sans-serif;
 }
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font); background: var(--bg); color: var(--body); font-size: 14px; line-height: 1.5; }
+
+/* HEADER */
 .header {
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px;
 }
 .header-brand { display: flex; align-items: center; gap: 20px; }
-.header-logo { height: 28px; width: auto; display: block; }
-.header-divider { width: 1px; height: 32px; background: var(--border); }
-.header-sub { font-size: 12px; font-weight: 500; color: var(--body); }
-.header-ts { font-size: 11px; color: var(--muted); text-align: right; line-height: 1.6; }
-.main { max-width: 1120px; margin: 0 auto; padding: 28px 24px 48px; }
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 28px; }
-.kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; }
-.kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 6px; }
-.kpi-value { font-size: 28px; font-weight: 700; color: var(--ink); letter-spacing: -.02em; line-height: 1; }
+.header-logo   { height: 28px; width: auto; display: block; }
+.header-divider{ width: 1px; height: 32px; background: var(--border); }
+.header-sub    { font-size: 12px; font-weight: 500; color: var(--body); }
+.header-ts     { font-size: 11px; color: var(--muted); text-align: right; line-height: 1.6; }
+
+/* LAYOUT */
+.main { max-width: 1140px; margin: 0 auto; padding: 28px 24px 56px; }
+
+/* KPI CARDS */
+.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+.kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; }
+.kpi-card.highlight { border-color: var(--agi); background: var(--agi-bg); }
+.kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 6px; }
+.kpi-value { font-size: 26px; font-weight: 700; color: var(--ink); letter-spacing: -.02em; line-height: 1; }
 .kpi-value.blue  { color: var(--agi); }
 .kpi-value.green { color: var(--green); }
-.kpi-sub { font-size: 11px; color: var(--muted); margin-top: 5px; }
-.charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-.chart-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; }
-.chart-box.full { grid-column: 1 / -1; }
-.chart-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 16px; }
-canvas { max-height: 220px; }
-canvas.short { max-height: 160px; }
+.kpi-value.amber { color: var(--amber); }
+.kpi-sub { font-size: 10px; color: var(--muted); margin-top: 5px; }
+.kpi-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px;
+              border-radius: 99px; margin-top: 5px; }
+.kpi-badge.up   { background: #DCFCE7; color: #16A34A; }
+.kpi-badge.down { background: #FEF3C7; color: #D97706; }
+
+/* SECTION ROWS */
+.row { display: grid; gap: 16px; margin-bottom: 16px; }
+.row.cols-1 { grid-template-columns: 1fr; }
+.row.cols-2 { grid-template-columns: 1fr 1fr; }
+.row.cols-3-1 { grid-template-columns: 3fr 1fr; }
+.row.cols-1-2 { grid-template-columns: 1fr 2fr; }
+
+/* BOXES */
+.box { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 22px; }
+.box-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.box-title span { font-size: 10px; font-weight: 400; color: var(--muted); }
+canvas { display: block; }
+
+/* BARRAS DE OBJETIVO */
+.obj-list { display: flex; flex-direction: column; gap: 10px; }
+.obj-row { display: flex; flex-direction: column; gap: 4px; }
+.obj-meta { display: flex; justify-content: space-between; align-items: baseline; }
+.obj-label { font-size: 12px; color: var(--body); flex: 1; padding-right: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.obj-count { font-size: 12px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.obj-pct   { font-size: 10px; color: var(--muted); margin-left: 6px; }
+.obj-bar   { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.obj-fill  { height: 100%; border-radius: 3px; background: var(--agi); }
+
+/* TABELA ULTIMOS LEADS */
+.leads-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.leads-table th { font-size: 10px; font-weight: 600; text-transform: uppercase;
+                   letter-spacing: .06em; color: var(--muted); padding: 0 8px 8px; text-align: left; }
+.leads-table td { padding: 7px 8px; border-top: 1px solid var(--border); }
+.leads-table td:last-child { color: var(--muted); white-space: nowrap; }
+.leads-table tr:hover td { background: var(--bg); }
+.tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 99px;
+        background: var(--agi-bg); color: var(--agi); font-weight: 500; }
+
+/* HEATMAP */
+.heatmap-wrap { overflow-x: auto; }
+.heatmap { display: grid; grid-template-columns: 32px repeat(24, 1fr); gap: 2px; min-width: 520px; }
+.hm-cell { height: 18px; border-radius: 2px; }
+.hm-label { font-size: 9px; color: var(--muted); display: flex; align-items: center;
+             justify-content: flex-end; padding-right: 4px; }
+.hm-hour  { font-size: 9px; color: var(--muted); display: flex; align-items: center;
+             justify-content: center; height: 14px; margin-bottom: 2px; }
+.heatmap-hours { display: grid; grid-template-columns: 32px repeat(24, 1fr); gap: 2px; min-width: 520px; margin-bottom: 4px; }
+
+/* FOOTER */
 .footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 32px; }
-@media (max-width: 680px) {
-  .charts-row { grid-template-columns: 1fr; }
+
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  .row.cols-2, .row.cols-3-1, .row.cols-1-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .kpi-value { font-size: 22px; }
-  .header { padding: 16px 20px; }
-  .main { padding: 20px 16px 40px; }
+  .header { padding: 0 16px; }
+  .main { padding: 16px 12px 40px; }
 }
 </style>
 </head>
@@ -68,16 +122,23 @@ canvas.short { max-height: 160px; }
   <div class="header-ts">Atualizado em<br><strong id="ts"></strong></div>
 </header>
 <main class="main">
+
+  <!-- KPI CARDS -->
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-label">Leads unicos totais</div>
+      <div class="kpi-label">Total acumulado</div>
       <div class="kpi-value blue" id="kpi-total"></div>
       <div class="kpi-sub">desde <span id="kpi-inicio"></span></div>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card highlight">
       <div class="kpi-label">Hoje</div>
-      <div class="kpi-value" id="kpi-hoje"></div>
-      <div class="kpi-sub">ate agora</div>
+      <div class="kpi-value blue" id="kpi-hoje"></div>
+      <div id="kpi-hoje-badge"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Projecao hoje</div>
+      <div class="kpi-value amber" id="kpi-proj"></div>
+      <div class="kpi-sub" id="kpi-proj-sub"></div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Ontem</div>
@@ -94,79 +155,193 @@ canvas.short { max-height: 160px; }
       <div class="kpi-value green" id="kpi-receita"></div>
       <div class="kpi-sub">R$ <span id="kpi-cpl"></span>/lead</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Taxa de conversao</div>
-      <div class="kpi-value" id="kpi-taxa"></div>
-      <div class="kpi-sub">conectados qualificados</div>
+  </div>
+
+  <!-- GRAFICO DIARIO COM PROJECAO -->
+  <div class="row cols-1">
+    <div class="box">
+      <div class="box-title">Leads por dia <span id="daily-proj-label"></span></div>
+      <canvas id="chart-daily" style="max-height:160px"></canvas>
     </div>
   </div>
-  <div class="charts-row">
-    <div class="chart-box full">
-      <div class="chart-title">Leads por dia</div>
-      <canvas id="chart-daily" class="short"></canvas>
+
+  <!-- ACUMULADO HOJE VS ONTEM + HEATMAP -->
+  <div class="row cols-2">
+    <div class="box">
+      <div class="box-title">Ritmo do dia <span>hoje vs. ontem</span></div>
+      <canvas id="chart-acum" style="max-height:200px"></canvas>
+    </div>
+    <div class="box">
+      <div class="box-title">Leads por hora da semana</div>
+      <div class="heatmap-wrap">
+        <div class="heatmap-hours" id="hm-hours"></div>
+        <div class="heatmap" id="hm-grid"></div>
+      </div>
     </div>
   </div>
-  <div class="charts-row">
-    <div class="chart-box">
-      <div class="chart-title">Mix de objetivos</div>
-      <canvas id="chart-obj"></canvas>
+
+  <!-- OBJETIVOS + ULTIMOS LEADS -->
+  <div class="row cols-2">
+    <div class="box">
+      <div class="box-title">Mix de objetivos</div>
+      <div class="obj-list" id="obj-list"></div>
     </div>
-    <div class="chart-box">
-      <div class="chart-title">Leads por hora do dia</div>
-      <canvas id="chart-hora"></canvas>
+    <div class="box">
+      <div class="box-title">Ultimos leads <span>em tempo real</span></div>
+      <table class="leads-table">
+        <thead><tr><th>Nome</th><th>Objetivo</th><th>Hora</th></tr></thead>
+        <tbody id="leads-tbody"></tbody>
+      </table>
     </div>
   </div>
+
 </main>
 <footer class="footer">
-  Historico: Excel Linktel (ate 11/11 15:52) &middot; Tempo real: WiFire API &middot; Dedup por telefone
+  Historico: Excel Linktel (ate 11/11 15:52) &middot; Incremental: WiFire API &middot; Dedup por telefone
 </footer>
 <script>
-const D = {"generated_at": "11/11/2026 17:32", "total": 1216, "hoje": 247, "ontem": 454, "media_7d": 138.4, "receita": 6067.84, "cpl": 4.99, "timeline": [{"date": "2026-11-09", "n": 515}, {"date": "2026-11-10", "n": 454}, {"date": "2026-11-11", "n": 247}], "objetivos": [{"label": "Organizar as contas e pagar dívidas", "n": 816}, {"label": "Tirar um sonho ou projeto do papel", "n": 211}, {"label": "Reformar ou melhorar a casa", "n": 189}], "por_hora": [11, 0, 3, 6, 26, 81, 102, 102, 72, 54, 57, 68, 60, 82, 62, 84, 70, 40, 50, 55, 42, 39, 32, 18], "taxa_conv": 100.0};
-function fmt(n) { return n.toLocaleString('pt-BR'); }
-function fmtBRL(v) { return 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2}); }
-document.getElementById('ts').textContent        = D.generated_at;
-document.getElementById('kpi-total').textContent = fmt(D.total);
-document.getElementById('kpi-hoje').textContent  = fmt(D.hoje);
-document.getElementById('kpi-ontem').textContent = fmt(D.ontem);
-document.getElementById('kpi-media').textContent = D.media_7d.toLocaleString('pt-BR');
+const D = {"generated_at": "11/11/2026 17:38", "total": 1216, "hoje": 247, "ontem": 454, "media_7d": 138.4, "receita": 6067.84, "cpl": 4.99, "timeline": [{"date": "2026-11-09", "n": 515}, {"date": "2026-11-10", "n": 454}, {"date": "2026-11-11", "n": 247}], "objetivos": [{"label": "Organizar as contas e pagar dívidas", "n": 816, "pct": 67}, {"label": "Tirar um sonho ou projeto do papel", "n": 211, "pct": 17}, {"label": "Reformar ou melhorar a casa", "n": 189, "pct": 16}], "por_hora": [11, 0, 3, 6, 26, 81, 102, 102, 72, 54, 57, 68, 60, 82, 62, 84, 70, 40, 50, 55, 42, 39, 32, 18], "taxa_conv": 100.0, "projecao_hoje": 336, "current_hour": 17, "acum_hoje": [2, 2, 2, 3, 9, 23, 47, 80, 96, 110, 130, 159, 172, 195, 212, 236, 247, 247, null, null, null, null, null, null], "acum_ontem": [3, 3, 4, 6, 18, 51, 92, 131, 155, 172, 194, 216, 235, 264, 286, 309, 336, 351, 376, 400, 411, 434, 445, 454], "heatmap": {"1,0": 6, "1,2": 2, "1,3": 3, "1,4": 8, "1,5": 34, "1,6": 37, "1,7": 30, "1,8": 32, "1,9": 23, "1,10": 15, "1,11": 17, "1,12": 28, "1,13": 30, "1,14": 23, "1,15": 37, "1,16": 32, "1,17": 25, "1,18": 25, "1,19": 31, "1,20": 31, "1,21": 16, "1,22": 21, "1,23": 9, "2,0": 3, "2,2": 1, "2,3": 2, "2,4": 12, "2,5": 33, "2,6": 41, "2,7": 39, "2,8": 24, "2,9": 17, "2,10": 22, "2,11": 22, "2,12": 19, "2,13": 29, "2,14": 22, "2,15": 23, "2,16": 27, "2,17": 15, "2,18": 25, "2,19": 24, "2,20": 11, "2,21": 23, "2,22": 11, "2,23": 9, "3,0": 2, "3,3": 1, "3,4": 6, "3,5": 14, "3,6": 24, "3,7": 33, "3,8": 16, "3,9": 14, "3,10": 20, "3,11": 29, "3,12": 13, "3,13": 23, "3,14": 17, "3,15": 24, "3,16": 11}, "ultimos": [{"name": "Lilian De Cassia", "objetivo": "Reformar ou melhorar a casa", "at": "16:52"}, {"name": "Arthur Roque De Oliveira", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:53"}, {"name": "Bruno Vander De Oliveira Lima", "objetivo": "Organizar as contas e pagar dívidas", "at": "15:57"}, {"name": "Fabiana Rosiley Dos Santos", "objetivo": "Reformar ou melhorar a casa", "at": "15:57"}, {"name": "Beatriz De Oliveira Bispo", "objetivo": "Organizar as contas e pagar dívidas", "at": "15:58"}, {"name": "Rafael", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:06"}, {"name": "Quiteria Amorim", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:12"}, {"name": "Izabel Santos", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:13"}, {"name": "Edenso Lazaro De Oliveira", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:16"}, {"name": "Jessica", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:21"}]};
+const AGI='#266BFF', AGI_L='#C7D7FF', AGI_M='#93B4FF', AMBER='#F59E0B', GRID='#F3F4F6';
+
+function fmt(n)   { return (n||0).toLocaleString('pt-BR'); }
+function fmtBRL(v){ return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+// HEADER
+document.getElementById('ts').textContent = D.generated_at;
+
+// KPI
+document.getElementById('kpi-total').textContent   = fmt(D.total);
+document.getElementById('kpi-hoje').textContent    = fmt(D.hoje);
+document.getElementById('kpi-ontem').textContent   = fmt(D.ontem);
+document.getElementById('kpi-media').textContent   = D.media_7d.toLocaleString('pt-BR');
 document.getElementById('kpi-receita').textContent = fmtBRL(D.receita);
-document.getElementById('kpi-cpl').textContent   = D.cpl.toLocaleString('pt-BR', {minimumFractionDigits:2});
-document.getElementById('kpi-taxa').textContent  = D.taxa_conv + '%';
-document.getElementById('kpi-inicio').textContent = D.timeline.length ? D.timeline[0].date.split('-').reverse().join('/') : '-';
-const AGI = '#266BFF', AGI_L = '#93B4FF', GRID = '#F3F4F6';
+document.getElementById('kpi-cpl').textContent     = D.cpl.toLocaleString('pt-BR',{minimumFractionDigits:2});
+document.getElementById('kpi-proj').textContent    = fmt(D.projecao_hoje);
+document.getElementById('kpi-inicio').textContent  = D.timeline.length ? D.timeline[0].date.slice(5).split('-').reverse().join('/') : '-';
+
+// Badge hoje vs ontem
+const diff = D.hoje - D.ontem;
+const badge = document.getElementById('kpi-hoje-badge');
+if (D.ontem > 0) {
+  const pct = Math.round(Math.abs(diff) / D.ontem * 100);
+  badge.innerHTML = `<span class="kpi-badge ${diff>=0?'up':'down'}">${diff>=0?'+':''}${diff} (${pct}% ${diff>=0?'acima':'abaixo'} de ontem)</span>`;
+}
+
+// Proj sub
+const horaAtual = D.current_hour;
+document.getElementById('kpi-proj-sub').textContent = `ritmo das ${String(horaAtual).padStart(2,'0')}h`;
+
+// GRAFICO DIARIO com projecao
+const todayIdx = D.timeline.length - 1;
+const projGap  = Math.max(0, D.projecao_hoje - D.hoje);
+const gapData  = D.timeline.map((_,i) => i===todayIdx ? projGap : 0);
+const dailyColors = D.timeline.map((_,i) => i===todayIdx ? AGI : AGI);
+document.getElementById('daily-proj-label').textContent =
+  projGap > 0 ? `projecao: ${fmt(D.projecao_hoje)} leads` : '';
 new Chart(document.getElementById('chart-daily'), {
   type: 'bar',
   data: {
     labels: D.timeline.map(t => t.date.slice(5).replace('-','/')),
-    datasets: [{ data: D.timeline.map(t => t.n), backgroundColor: AGI, borderRadius: 4, borderSkipped: false }]
+    datasets: [
+      { data: D.timeline.map(t=>t.n), backgroundColor: dailyColors,
+         borderRadius: [4,4,0,0], borderSkipped: false, stack:'s' },
+      { data: gapData, backgroundColor: AGI_L,
+         borderRadius: [4,4,0,0], borderSkipped: false, stack:'s',
+         label: 'Projecao' }
+    ]
   },
   options: { responsive:true, maintainAspectRatio:true,
-    plugins: { legend: { display:false } },
-    scales: { x: { grid: { display:false } }, y: { grid: { color:GRID }, beginAtZero:true } }
+    plugins: { legend:{display:false},
+      tooltip: { callbacks: { label: ctx => {
+        if (ctx.datasetIndex===1 && ctx.raw>0) return ` Projecao: +${fmt(ctx.raw)}`;
+        if (ctx.datasetIndex===0) return ` Leads: ${fmt(ctx.raw)}`;
+        return null;
+      } } }
+    },
+    scales: {
+      x: { grid:{display:false}, stacked:true },
+      y: { grid:{color:GRID}, beginAtZero:true, stacked:true }
+    }
   }
 });
-new Chart(document.getElementById('chart-obj'), {
-  type: 'doughnut',
-  data: {
-    labels: D.objetivos.map(o => o.label),
-    datasets: [{ data: D.objetivos.map(o => o.n), backgroundColor: ['#266BFF','#93B4FF','#C7D7FF'], borderWidth:0 }]
-  },
-  options: { responsive:true, maintainAspectRatio:true,
-    plugins: { legend: { position:'bottom', labels: { font: { size:11 }, padding:12 } } }
-  }
-});
-const horaLabels = Array.from({length:24}, (_,i) => i.toString().padStart(2,'0')+'h');
-new Chart(document.getElementById('chart-hora'), {
-  type: 'bar',
+
+// ACUMULADO HOJE VS ONTEM
+const horaLabels = Array.from({length:24},(_,i)=>String(i).padStart(2,'0')+'h');
+new Chart(document.getElementById('chart-acum'), {
+  type: 'line',
   data: {
     labels: horaLabels,
-    datasets: [{ data: D.por_hora, backgroundColor: D.por_hora.map(v => v===Math.max(...D.por_hora) ? AGI : AGI_L), borderRadius:3, borderSkipped:false }]
+    datasets: [
+      { label:'Hoje', data:D.acum_hoje, borderColor:AGI, backgroundColor:'rgba(38,107,255,.08)',
+         fill:true, tension:.3, pointRadius:2, borderWidth:2, spanGaps:false },
+      { label:'Ontem', data:D.acum_ontem, borderColor:AGI_M, backgroundColor:'transparent',
+         fill:false, tension:.3, pointRadius:0, borderWidth:1.5, borderDash:[4,3] }
+    ]
   },
   options: { responsive:true, maintainAspectRatio:true,
-    plugins: { legend: { display:false } },
-    scales: { x: { grid: { display:false }, ticks: { font: { size:10 } } }, y: { grid: { color:GRID }, beginAtZero:true } }
+    plugins: { legend:{ position:'bottom', labels:{ font:{size:11}, padding:12, usePointStyle:true } } },
+    scales: {
+      x: { grid:{display:false}, ticks:{font:{size:10}, maxTicksLimit:8} },
+      y: { grid:{color:GRID}, beginAtZero:true }
+    }
   }
 });
+
+// HEATMAP
+(function() {
+  const DAYS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+  const hm   = D.heatmap;
+  const vals = Object.values(hm).map(Number);
+  const maxV = vals.length ? Math.max(...vals) : 1;
+
+  // header de horas
+  const hoursRow = document.getElementById('hm-hours');
+  hoursRow.innerHTML = '<div></div>' + Array.from({length:24},(_,i)=>
+    `<div class="hm-hour">${i%3===0?String(i).padStart(2,'0'):''}</div>`).join('');
+
+  // grid: 7 linhas (dias), 24 colunas (horas)
+  const grid = document.getElementById('hm-grid');
+  let html = '';
+  for (let d=0;d<7;d++) {
+    html += `<div class="hm-label">${DAYS[d]}</div>`;
+    for (let h=0;h<24;h++) {
+      const v = hm[d+','+h]||0;
+      const alpha = v>0 ? 0.12 + (v/maxV)*0.78 : 0;
+      const bg = v>0 ? `rgba(38,107,255,${alpha.toFixed(2)})` : '#F3F4F6';
+      const tip = v>0 ? `title="${DAYS[d]} ${String(h).padStart(2,'0')}h: ${v} leads"` : '';
+      html += `<div class="hm-cell" style="background:${bg}" ${tip}></div>`;
+    }
+  }
+  grid.innerHTML = html;
+})();
+
+// OBJETIVOS - progress bars
+(function() {
+  const list = document.getElementById('obj-list');
+  const maxN = D.objetivos.length ? D.objetivos[0].n : 1;
+  const colors = [AGI, AGI_M, '#C7D7FF', '#DBEAFE'];
+  list.innerHTML = D.objetivos.map((o,i) => `
+    <div class="obj-row">
+      <div class="obj-meta">
+        <span class="obj-label" title="${o.label}">${o.label}</span>
+        <span class="obj-count">${fmt(o.n)}<span class="obj-pct">${o.pct}%</span></span>
+      </div>
+      <div class="obj-bar">
+        <div class="obj-fill" style="width:${o.pct}%;background:${colors[i]||AGI_M}"></div>
+      </div>
+    </div>`).join('');
+})();
+
+// ULTIMOS LEADS
+(function() {
+  const tbody = document.getElementById('leads-tbody');
+  tbody.innerHTML = D.ultimos.map(l => `
+    <tr>
+      <td>${l.name}</td>
+      <td><span class="tag">${l.objetivo.length>28?l.objetivo.slice(0,26)+'…':l.objetivo}</span></td>
+      <td>${l.at}</td>
+    </tr>`).join('');
+})();
 </script>
 </body>
 </html>
