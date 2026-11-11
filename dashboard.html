@@ -43,7 +43,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--body); font
 .main { max-width: 1140px; margin: 0 auto; padding: 28px 24px 56px; }
 
 /* KPI CARDS */
-.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
 .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; }
 .kpi-card.highlight { border-color: var(--agi); background: var(--agi-bg); }
 .kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 6px; }
@@ -91,14 +91,14 @@ canvas { display: block; }
         background: var(--agi-bg); color: var(--agi); font-weight: 500; }
 
 /* HEATMAP */
-.heatmap-wrap { overflow-x: auto; }
-.heatmap { display: grid; grid-template-columns: 32px repeat(24, 1fr); gap: 2px; min-width: 520px; }
-.hm-cell { height: 18px; border-radius: 2px; }
+.heatmap-wrap { overflow-x: auto; width: 100%; }
+.heatmap { display: grid; grid-template-columns: 28px repeat(24, minmax(0, 1fr)); gap: 2px; width: 100%; }
+.hm-cell { height: 18px; border-radius: 2px; min-width: 0; }
 .hm-label { font-size: 9px; color: var(--muted); display: flex; align-items: center;
-             justify-content: flex-end; padding-right: 4px; }
+             justify-content: flex-end; padding-right: 4px; white-space: nowrap; }
 .hm-hour  { font-size: 9px; color: var(--muted); display: flex; align-items: center;
              justify-content: center; height: 14px; margin-bottom: 2px; }
-.heatmap-hours { display: grid; grid-template-columns: 32px repeat(24, 1fr); gap: 2px; min-width: 520px; margin-bottom: 4px; }
+.heatmap-hours { display: grid; grid-template-columns: 28px repeat(24, minmax(0, 1fr)); gap: 2px; width: 100%; margin-bottom: 4px; }
 
 /* FOOTER */
 .footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 32px; }
@@ -155,11 +155,6 @@ canvas { display: block; }
       <div class="kpi-value" id="kpi-media"></div>
       <div class="kpi-sub">leads/dia</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Receita acumulada</div>
-      <div class="kpi-value green" id="kpi-receita"></div>
-      <div class="kpi-sub">R$ <span id="kpi-cpl"></span>/lead</div>
-    </div>
   </div>
 
   <!-- GRAFICO DIARIO COM PROJECAO -->
@@ -205,7 +200,7 @@ canvas { display: block; }
   Historico: Excel Linktel (ate 11/11 15:52) &middot; Incremental: WiFire API &middot; Dedup por telefone
 </footer>
 <script>
-const D = {"generated_at": "11/11/2026 18:07", "total": 1216, "hoje": 247, "ontem": 454, "media_7d": 138.4, "receita": 6067.84, "cpl": 4.99, "timeline": [{"date": "2026-11-09", "n": 515}, {"date": "2026-11-10", "n": 454}, {"date": "2026-11-11", "n": 247}], "objetivos": [{"label": "Organizar as contas e pagar dívidas", "n": 816, "pct": 67}, {"label": "Tirar um sonho ou projeto do papel", "n": 211, "pct": 17}, {"label": "Reformar ou melhorar a casa", "n": 189, "pct": 16}], "por_hora": [11, 0, 3, 6, 26, 81, 102, 102, 72, 54, 57, 68, 60, 82, 62, 84, 70, 40, 50, 55, 42, 39, 32, 18], "taxa_conv": 100.0, "projecao_hoje": 327, "current_hour": 18, "acum_hoje": [2, 2, 2, 3, 9, 23, 47, 80, 96, 110, 130, 159, 172, 195, 212, 236, 247, 247, 247, null, null, null, null, null], "acum_ontem": [3, 3, 4, 6, 18, 51, 92, 131, 155, 172, 194, 216, 235, 264, 286, 309, 336, 351, 376, 400, 411, 434, 445, 454], "heatmap": {"1,0": 6, "1,2": 2, "1,3": 3, "1,4": 8, "1,5": 34, "1,6": 37, "1,7": 30, "1,8": 32, "1,9": 23, "1,10": 15, "1,11": 17, "1,12": 28, "1,13": 30, "1,14": 23, "1,15": 37, "1,16": 32, "1,17": 25, "1,18": 25, "1,19": 31, "1,20": 31, "1,21": 16, "1,22": 21, "1,23": 9, "2,0": 3, "2,2": 1, "2,3": 2, "2,4": 12, "2,5": 33, "2,6": 41, "2,7": 39, "2,8": 24, "2,9": 17, "2,10": 22, "2,11": 22, "2,12": 19, "2,13": 29, "2,14": 22, "2,15": 23, "2,16": 27, "2,17": 15, "2,18": 25, "2,19": 24, "2,20": 11, "2,21": 23, "2,22": 11, "2,23": 9, "3,0": 2, "3,3": 1, "3,4": 6, "3,5": 14, "3,6": 24, "3,7": 33, "3,8": 16, "3,9": 14, "3,10": 20, "3,11": 29, "3,12": 13, "3,13": 23, "3,14": 17, "3,15": 24, "3,16": 11}, "ultimos": [{"name": "Lilian De Cassia", "objetivo": "Reformar ou melhorar a casa", "at": "16:52"}, {"name": "Arthur Roque De Oliveira", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:53"}, {"name": "Bruno Vander De Oliveira Lima", "objetivo": "Organizar as contas e pagar dívidas", "at": "15:57"}, {"name": "Fabiana Rosiley Dos Santos", "objetivo": "Reformar ou melhorar a casa", "at": "15:57"}, {"name": "Beatriz De Oliveira Bispo", "objetivo": "Organizar as contas e pagar dívidas", "at": "15:58"}, {"name": "Rafael", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:06"}, {"name": "Quiteria Amorim", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:12"}, {"name": "Izabel Santos", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:13"}, {"name": "Edenso Lazaro De Oliveira", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:16"}, {"name": "Jessica", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:21"}]};
+const D = {"generated_at": "11/11/2026 18:11", "total": 1216, "hoje": 247, "ontem": 454, "media_7d": 138.4, "receita": 6067.84, "cpl": 4.99, "timeline": [{"date": "2026-11-09", "n": 515}, {"date": "2026-11-10", "n": 454}, {"date": "2026-11-11", "n": 247}], "objetivos": [{"label": "Organizar as contas e pagar dívidas", "n": 816, "pct": 67}, {"label": "Tirar um sonho ou projeto do papel", "n": 211, "pct": 17}, {"label": "Reformar ou melhorar a casa", "n": 189, "pct": 16}], "por_hora": [11, 0, 3, 6, 26, 81, 102, 102, 72, 54, 57, 68, 60, 82, 62, 84, 70, 40, 50, 55, 42, 39, 32, 18], "taxa_conv": 100.0, "projecao_hoje": 326, "current_hour": 18, "acum_hoje": [2, 2, 2, 3, 9, 23, 47, 80, 96, 110, 130, 159, 172, 195, 212, 236, 247, 247, 247, null, null, null, null, null], "acum_ontem": [3, 3, 4, 6, 18, 51, 92, 131, 155, 172, 194, 216, 235, 264, 286, 309, 336, 351, 376, 400, 411, 434, 445, 454], "heatmap": {"1,0": 6, "1,2": 2, "1,3": 3, "1,4": 8, "1,5": 34, "1,6": 37, "1,7": 30, "1,8": 32, "1,9": 23, "1,10": 15, "1,11": 17, "1,12": 28, "1,13": 30, "1,14": 23, "1,15": 37, "1,16": 32, "1,17": 25, "1,18": 25, "1,19": 31, "1,20": 31, "1,21": 16, "1,22": 21, "1,23": 9, "2,0": 3, "2,2": 1, "2,3": 2, "2,4": 12, "2,5": 33, "2,6": 41, "2,7": 39, "2,8": 24, "2,9": 17, "2,10": 22, "2,11": 22, "2,12": 19, "2,13": 29, "2,14": 22, "2,15": 23, "2,16": 27, "2,17": 15, "2,18": 25, "2,19": 24, "2,20": 11, "2,21": 23, "2,22": 11, "2,23": 9, "3,0": 2, "3,3": 1, "3,4": 6, "3,5": 14, "3,6": 24, "3,7": 33, "3,8": 16, "3,9": 14, "3,10": 20, "3,11": 29, "3,12": 13, "3,13": 23, "3,14": 17, "3,15": 24, "3,16": 11}, "ultimos": [{"name": "Lilian De Cassia", "objetivo": "Reformar ou melhorar a casa", "at": "16:52"}, {"name": "Arthur Roque De Oliveira", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:53"}, {"name": "Bruno Vander De Oliveira Lima", "objetivo": "Organizar as contas e pagar dívidas", "at": "15:57"}, {"name": "Fabiana Rosiley Dos Santos", "objetivo": "Reformar ou melhorar a casa", "at": "15:57"}, {"name": "Beatriz De Oliveira Bispo", "objetivo": "Organizar as contas e pagar dívidas", "at": "15:58"}, {"name": "Rafael", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:06"}, {"name": "Quiteria Amorim", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:12"}, {"name": "Izabel Santos", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:13"}, {"name": "Edenso Lazaro De Oliveira", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:16"}, {"name": "Jessica", "objetivo": "Organizar as contas e pagar dívidas", "at": "16:21"}]};
 const AGI='#266BFF', AGI_L='#C7D7FF', AGI_M='#93B4FF', AMBER='#F59E0B', GRID='#F3F4F6';
 
 function fmt(n)   { return (n||0).toLocaleString('pt-BR'); }
@@ -219,18 +214,8 @@ document.getElementById('kpi-total').textContent   = fmt(D.total);
 document.getElementById('kpi-hoje').textContent    = fmt(D.hoje);
 document.getElementById('kpi-ontem').textContent   = fmt(D.ontem);
 document.getElementById('kpi-media').textContent   = D.media_7d.toLocaleString('pt-BR');
-document.getElementById('kpi-receita').textContent = fmtBRL(D.receita);
-document.getElementById('kpi-cpl').textContent     = D.cpl.toLocaleString('pt-BR',{minimumFractionDigits:2});
 document.getElementById('kpi-proj').textContent    = fmt(D.projecao_hoje);
 document.getElementById('kpi-inicio').textContent  = D.timeline.length ? D.timeline[0].date.slice(5).split('-').reverse().join('/') : '-';
-
-// Badge hoje vs ontem
-const diff = D.hoje - D.ontem;
-const badge = document.getElementById('kpi-hoje-badge');
-if (D.ontem > 0) {
-  const pct = Math.round(Math.abs(diff) / D.ontem * 100);
-  badge.innerHTML = `<span class="kpi-badge ${diff>=0?'up':'down'}">${diff>=0?'+':''}${diff} (${pct}% ${diff>=0?'acima':'abaixo'} de ontem)</span>`;
-}
 
 // Proj sub
 const horaAtual = D.current_hour;
