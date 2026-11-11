@@ -24,13 +24,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font); background: var(--bg); color: var(--body); font-size: 14px; line-height: 1.5; }
 .header {
-  background: var(--agi); padding: 20px 32px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
   display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
 }
-.header-brand { display: flex; align-items: center; gap: 12px; }
-.header-title { color: #fff; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
-.header-sub { color: rgba(255,255,255,.65); font-size: 12px; margin-top: 2px; }
-.header-ts { color: rgba(255,255,255,.55); font-size: 11px; text-align: right; }
+.header-brand { display: flex; align-items: center; gap: 20px; }
+.header-logo { height: 28px; width: auto; display: block; }
+.header-divider { width: 1px; height: 32px; background: var(--border); }
+.header-sub { font-size: 12px; font-weight: 500; color: var(--body); }
+.header-ts { font-size: 11px; color: var(--muted); text-align: right; line-height: 1.6; }
 .main { max-width: 1120px; margin: 0 auto; padding: 28px 24px 48px; }
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 28px; }
 .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; }
@@ -57,16 +61,9 @@ canvas.short { max-height: 160px; }
 <body>
 <header class="header">
   <div class="header-brand">
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <rect width="28" height="28" rx="6" fill="white" fill-opacity=".15"/>
-      <rect x="6" y="8" width="4" height="12" rx="2" fill="white"/>
-      <rect x="12" y="5" width="4" height="15" rx="2" fill="white" fill-opacity=".8"/>
-      <rect x="18" y="11" width="4" height="9" rx="2" fill="white" fill-opacity=".6"/>
-    </svg>
-    <div>
-      <div class="header-title">Agibank &times; Trackfy</div>
-      <div class="header-sub">Metro e CPTM &mdash; Credito do Trabalhador</div>
-    </div>
+    <img src="agibank-logo.svg" alt="Agibank" class="header-logo">
+    <div class="header-divider"></div>
+    <span class="header-sub">Metro e CPTM &middot; Credito do Trabalhador</span>
   </div>
   <div class="header-ts">Atualizado em<br><strong id="ts"></strong></div>
 </header>
@@ -124,7 +121,7 @@ canvas.short { max-height: 160px; }
   Historico: Excel Linktel (ate 11/11 15:52) &middot; Tempo real: WiFire API &middot; Dedup por telefone
 </footer>
 <script>
-const D = {"generated_at": "11/11/2026 17:17", "total": 1216, "hoje": 247, "ontem": 454, "media_7d": 138.4, "receita": 6067.84, "cpl": 4.99, "timeline": [{"date": "2026-11-09", "n": 515}, {"date": "2026-11-10", "n": 454}, {"date": "2026-11-11", "n": 247}], "objetivos": [{"label": "Organizar as contas e pagar dívidas", "n": 816}, {"label": "Tirar um sonho ou projeto do papel", "n": 211}, {"label": "Reformar ou melhorar a casa", "n": 189}], "por_hora": [11, 0, 3, 6, 26, 81, 102, 102, 72, 54, 57, 68, 60, 82, 62, 84, 70, 40, 50, 55, 42, 39, 32, 18], "taxa_conv": 100.0};
+const D = {"generated_at": "11/11/2026 17:32", "total": 1216, "hoje": 247, "ontem": 454, "media_7d": 138.4, "receita": 6067.84, "cpl": 4.99, "timeline": [{"date": "2026-11-09", "n": 515}, {"date": "2026-11-10", "n": 454}, {"date": "2026-11-11", "n": 247}], "objetivos": [{"label": "Organizar as contas e pagar dívidas", "n": 816}, {"label": "Tirar um sonho ou projeto do papel", "n": 211}, {"label": "Reformar ou melhorar a casa", "n": 189}], "por_hora": [11, 0, 3, 6, 26, 81, 102, 102, 72, 54, 57, 68, 60, 82, 62, 84, 70, 40, 50, 55, 42, 39, 32, 18], "taxa_conv": 100.0};
 function fmt(n) { return n.toLocaleString('pt-BR'); }
 function fmtBRL(v) { return 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2}); }
 document.getElementById('ts').textContent        = D.generated_at;
